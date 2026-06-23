@@ -1,0 +1,1150 @@
+{
+  "mentor": {
+    "name": "Muahmmed BK",
+    "designation": "Senior Academic Mentor",
+    "email": "ananya.rao@mentorship.edu",
+    "phone": "+91 98765 43210",
+    "photo": "https://i.postimg.cc/W3QxjJjw/unnamed.jpg",
+    "batches": [
+      "Hiba ",
+      "Swafa",
+      "Suhba",
+      "Wafd",
+      "Uswa",
+      "Wahda",
+      "Freshers"
+    ]
+  },
+  "students": [
+    {
+      "id": "id1781849270237nuhrj",
+      "name": "Muhammed Saalim",
+      "admissionNo": "3756",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781859130595wgk2h",
+      "name": "Mohmad Najwan C",
+      "admissionNo": "3862",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id17818633950878nfqm",
+      "name": "Muahammed Vahid P",
+      "admissionNo": "3851",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863431174kkcjq",
+      "name": "Shadin TK",
+      "admissionNo": "3881",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863520189bi8ao",
+      "name": "Muhammed Thameem CM",
+      "admissionNo": "3859",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863555637z00yr",
+      "name": "Faslu Rahman",
+      "admissionNo": "3865",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863589020u3h9w",
+      "name": "Muhammed Adil KT",
+      "admissionNo": "3841",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863614596m3rmy",
+      "name": "Muhammed Shammas KP",
+      "admissionNo": "3888",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863696101hvun6",
+      "name": "Ayman Ahmad M",
+      "admissionNo": "4001",
+      "batch": "Wafd",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "4",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id17818637463716yw4v",
+      "name": "Muhammed Silin ",
+      "admissionNo": "4014",
+      "batch": "Wafd",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "4",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863781507xp7v1",
+      "name": "Nafrin PK",
+      "admissionNo": "4035",
+      "batch": "Wafd",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "4",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id17818638214989byyy",
+      "name": "Muahammed PA",
+      "admissionNo": "4030",
+      "batch": "Wafd",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "4",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781863985921vn2hp",
+      "name": "Muhammed Ameen UK",
+      "admissionNo": "4121",
+      "batch": "Wahda",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "2",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781864033968r1xle",
+      "name": "Muhammed Swalih P",
+      "admissionNo": "4133",
+      "batch": "Wahda",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "2",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781864082944yc171",
+      "name": "Muhammed Nabeeh KT",
+      "admissionNo": "4106",
+      "batch": "Wahda",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "2",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id1781864166128xlk1w",
+      "name": "Hadi Ameen Mubarak C",
+      "admissionNo": "4130",
+      "batch": "Wahda",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "2",
+        "attendance": 90,
+        "performance": 80,
+        "gpa": 3.5,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id312348745179163869338140672",
+      "name": "Muhammed Shammas K.P.",
+      "admissionNo": "3838",
+      "batch": "Swafa",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "6A",
+        "attendance": 85,
+        "performance": 75,
+        "gpa": 3.2,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    },
+    {
+      "id": "id84250095351063001692110848",
+      "name": "MUHAMMED RAYYAN N",
+      "admissionNo": "4088",
+      "batch": "Freshers",
+      "dob": "",
+      "gender": "Male",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "photo": null,
+      "familyStatus": "Middle Class",
+      "father": {
+        "name": "",
+        "occupation": "",
+        "employed": true
+      },
+      "mother": {
+        "name": "",
+        "occupation": "",
+        "employed": false
+      },
+      "siblings": [],
+      "challenges": {
+        "financial": "Low",
+        "educational": "Low",
+        "social": "Low",
+        "health": "None"
+      },
+      "mentorNotes": "",
+      "academics": {
+        "class": "2B",
+        "attendance": 85,
+        "performance": 75,
+        "gpa": 3.2,
+        "strongSubjects": [],
+        "weakSubjects": [],
+        "examResults": [],
+        "readingHabits": "",
+        "learningProgress": "Steady",
+        "gpaTrend": [],
+        "attendanceTrend": []
+      },
+      "development": {
+        "strengths": [],
+        "weaknesses": [],
+        "skills": [],
+        "talents": [],
+        "improvements": [],
+        "leadership": 5,
+        "communication": 5,
+        "teamwork": 5,
+        "creativity": 5,
+        "discipline": 5,
+        "behaviour": "Good"
+      },
+      "achievements": [],
+      "goals": [],
+      "tasks": []
+    }
+  ],
+  "batches": [
+    {
+      "id": "b1",
+      "name": "Hiba ",
+      "year": "2026-2027"
+    },
+    {
+      "id": "b2",
+      "name": "Swafa",
+      "year": "2026-2027"
+    },
+    {
+      "id": "b3",
+      "name": "Suhba",
+      "year": "2026-2027"
+    },
+    {
+      "id": "id1781849185860veoyy",
+      "name": "Wafd",
+      "year": "2026-2027"
+    },
+    {
+      "id": "id1781858667907fv56i",
+      "name": "Uswa",
+      "year": "2026-2027"
+    },
+    {
+      "id": "id1781858676093nlp3e",
+      "name": "Wahda",
+      "year": "2026-2027"
+    },
+    {
+      "id": "id17818587077575a11s",
+      "name": "Freshers",
+      "year": "2026-2027"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "id1781868044967tg12e",
+      "title": "hiii",
+      "text": "",
+      "time": "Just now",
+      "icon": "bell",
+      "color": "accent",
+      "unread": true,
+      "target": "all"
+    }
+  ],
+  "activity": []
+}

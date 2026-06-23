@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mentorship — Premium Mentoring Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f7fb;
+  --bg-grad:radial-gradient(at 0% 0%,rgba(37,99,235,.06) 0,transparent 50%),radial-gradient(at 100% 100%,rgba(14,165,233,.05) 0,transparent 50%);
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --surface-3:#f1f5f9;
+  --border:#e2e8f0;
+  --border-strong:#cbd5e1;
+  --text:#0f172a;
+  --text-2:#334155;
+  --muted:#64748b;
+  --accent:#2563eb;
+  --accent-h:#1d4ed8;
+  --accent-soft:rgba(37,99,235,.10);
+  --accent-glow:rgba(37,99,235,.30);
+  --sky:#0ea5e9;
+  --sky-soft:rgba(14,165,233,.10);
+  --amber:#f59e0b;
+  --amber-soft:rgba(245,158,11,.10);
+  --rose:#f43f5e;
+  --rose-soft:rgba(244,63,94,.10);
+  --green:#10b981;
+  --green-soft:rgba(16,185,129,.10);
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04);
+  --shadow:0 4px 16px rgba(15,23,42,.06);
+  --shadow-lg:0 16px 48px rgba(15,23,42,.10);
+  --r-sm:8px;--r:14px;--r-lg:20px;--r-xl:28px;
+  --t:200ms cubic-bezier(.4,0,.2,1);
+  --fd:'Poppins',sans-serif;
+  --fu:'Poppins',sans-serif;
+  --fm:'Poppins',sans-serif;
+}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:var(--fu);background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;animation:bodyFade 1s ease}
+h1,h2,h3,h4,h5{font-family:var(--fd);font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.mono{font-family:var(--fm);font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;background:none;border:none;outline:none}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#94a3b8;background-clip:padding-box}
+
+/* ANIMATIONS */
+@keyframes bodyFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalIn { from{opacity:0;transform:translateY(20px) scale(.96)} to{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes toastIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 var(--accent-glow)} 70%{box-shadow:0 0 0 8px transparent} 100%{box-shadow:0 0 0 0 transparent} }
+@keyframes meshFloat { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-30px) scale(1.05)} 66%{transform:translate(-30px,40px) scale(.95)} }
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;position:relative;overflow:hidden}
+.login-hero{position:relative;padding:64px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#0ea5e9 100%);animation:slideInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both}
+.login-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.15),transparent 40%),radial-gradient(circle at 80% 70%,rgba(255,255,255,.10),transparent 40%);filter:blur(40px);animation:meshFloat 20s ease-in-out infinite}
+.login-hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%)}
+.login-hero>*{position:relative;z-index:2;opacity:0;animation:fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards}
+.login-hero>:nth-child(1){animation-delay:0.3s}
+.login-hero>:nth-child(2){animation-delay:0.5s}
+.login-hero>:nth-child(3){animation-delay:0.7s}
+
+.login-logo{display:flex;align-items:center;gap:12px;font-family:var(--fd);font-size:22px;font-weight:600;color:#fff}
+.login-logo-mark{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);display:grid;place-items:center;color:#fff;font-weight:700;font-size:20px;border:1px solid rgba(255,255,255,.2)}
+.login-hero-content{max-width:480px}
+.login-hero h1{font-size:60px;font-weight:300;color:#fff;line-height:1.05;margin-bottom:24px}
+.login-hero h1 em{font-style:italic;font-weight:600;color:#fbbf24}
+.login-hero p{font-size:17px;color:rgba(255,255,255,.8);line-height:1.6;max-width:420px}
+.login-hero-stats{display:flex;gap:32px;color:rgba(255,255,255,.8)}
+.login-hero-stat .num{font-family:var(--fd);font-size:36px;font-weight:600;color:#fff;display:block;line-height:1;font-variant-numeric:tabular-nums}
+.login-hero-stat .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-top:6px;color:rgba(255,255,255,.6)}
+.login-form-side{display:flex;align-items:center;justify-content:center;padding:48px;background:var(--bg);animation:slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both}
+.login-card{width:100%;max-width:400px}
+.login-card > * { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.login-card > *:nth-child(1){animation-delay:0.4s}
+.login-card > *:nth-child(2){animation-delay:0.5s}
+.login-card > *:nth-child(3){animation-delay:0.6s}
+.login-card > *:nth-child(4){animation-delay:0.7s}
+.login-card > *:nth-child(5){animation-delay:0.8s}
+.login-card > *:nth-child(6){animation-delay:0.9s}
+
+.login-card h2{font-size:32px;font-weight:600;margin-bottom:8px}
+.login-card .sub{color:var(--muted);margin-bottom:32px;font-size:15px}
+.role-toggle{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--surface-3);border-radius:var(--r);margin-bottom:24px;border:1px solid var(--border)}
+.role-toggle button{padding:10px;border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);transition:all var(--t)}
+.role-toggle button.active{background:#fff;color:var(--accent);box-shadow:var(--shadow-sm)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.input-wrap{position:relative}
+.input{width:100%;padding:13px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);font-size:14px;transition:all var(--t);color:var(--text);font-family:var(--fu)}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.input-wrap .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;display:flex}
+.input-wrap .input.with-icon{padding-left:42px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:var(--r);font-weight:600;font-size:14px;transition:all var(--t);white-space:nowrap;font-family:var(--fu)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px var(--accent-glow)}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 6px 20px var(--accent-glow)}
+.btn-ghost{background:var(--surface-3);color:var(--text-2);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-strong)}
+.btn-block{width:100%}
+.btn-lg{padding:14px 22px;font-size:15px}
+.login-cta{margin-top:8px}
+.login-hint{margin-top:24px;padding:14px;background:var(--accent-soft);border:1px solid rgba(37,99,235,.2);border-radius:var(--r);font-size:13px;color:var(--text-2);line-height:1.5}
+.login-hint code{font-family:var(--fm);background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;color:var(--accent);border:1px solid var(--border)}
+.quick-login{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.quick-chip{padding:6px 12px;background:var(--surface);border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--text-2);cursor:pointer;transition:all var(--t)}
+.quick-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* APP LAYOUT */
+.app{min-height:100vh;display:flex}
+.sidebar{width:248px;background:var(--surface);border-right:1px solid var(--border);padding:20px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;flex-shrink:0;z-index:40;transition:transform var(--t);overflow-y:auto}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:8px 10px 20px;font-family:var(--fd);font-size:19px;font-weight:600}
+.sidebar-logo .mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--sky));display:grid;place-items:center;color:#fff;font-weight:700;font-size:16px;box-shadow:0 4px 14px var(--accent-glow)}
+.nav-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:16px 12px 8px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:var(--text-2);font-size:14px;font-weight:500;cursor:pointer;transition:all var(--t);position:relative}
+.nav-item:hover{background:var(--surface-3);color:var(--text)}
+.nav-item.active{background:var(--accent-soft);color:var(--accent)}
+.nav-item.active::before{content:"";position:absolute;left:-14px;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--accent);border-radius:0 4px 4px 0}
+.nav-item svg{width:18px;height:18px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px;min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+.sidebar-footer{margin-top:auto;padding:12px 0 0;border-top:1px solid var(--border)}
+.mentor-mini{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer;transition:background var(--t)}
+.mentor-mini:hover{background:var(--surface-3)}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{height:68px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;gap:16px;padding:0 28px;position:sticky;top:0;z-index:30}
+.topbar-search{flex:1;max-width:420px;position:relative}
+.topbar-search input{width:100%;padding:9px 14px 9px 38px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;transition:all var(--t);color:var(--text);font-family:var(--fu)}
+.topbar-search input:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 4px var(--accent-soft)}
+.topbar-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);width:16px;height:16px}
+.topbar-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--text-2);transition:all var(--t);position:relative}
+.icon-btn:hover{background:var(--surface-3);color:var(--accent)}
+.icon-btn svg{width:18px;height:18px}
+.icon-btn .dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:var(--rose);border-radius:50%;border:2px solid var(--surface)}
+.content{padding:28px;flex:1;max-width:1600px;width:100%}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;transition:border-color var(--t);box-shadow:var(--shadow-sm)}
+.card:hover{border-color:var(--border-strong)}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.card-title{font-size:15px;font-weight:600;font-family:var(--fu);letter-spacing:-.01em}
+.card-sub{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;position:relative;overflow:hidden;transition:all var(--t);box-shadow:var(--shadow-sm)}
+.stat-card:hover{border-color:var(--border-strong);transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat-card .stat-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:14px}
+.stat-card .stat-icon svg{width:18px;height:18px}
+.stat-card .stat-val{font-family:var(--fd);font-size:34px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums}
+.stat-card .stat-lbl{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500}
+.stat-card .stat-trend{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;margin-top:10px;padding:3px 8px;border-radius:999px}
+.stat-trend.up{color:var(--green);background:var(--green-soft)}
+.stat-trend.down{color:var(--rose);background:var(--rose-soft)}
+.stat-trend svg{width:12px;height:12px}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.grid-1-2{display:grid;grid-template-columns:1fr 2fr;gap:20px}
+
+/* GREETING */
+.greeting{margin-bottom:24px}
+.greeting h1{font-size:36px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.greeting h1 em{font-style:normal;font-weight:700;color:var(--accent)}
+.greeting p{color:var(--muted);font-size:14px}
+
+/* CHARTS */
+.chart-wrap{position:relative;height:240px}
+.chart-wrap.tall{height:300px}
+.chart-wrap.small{height:160px}
+
+/* RANKING */
+.ranking-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.search-box{position:relative;flex:1;min-width:200px}
+.search-box input{width:100%;padding:9px 12px 9px 34px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;transition:all var(--t);color:var(--text);font-family:var(--fu)}
+.search-box input:focus{border-color:var(--accent);background:var(--surface)}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);width:15px;height:15px}
+.select{padding:9px 32px 9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 10px center;color:var(--text);font-family:var(--fu)}
+.ranking-list{display:flex;flex-direction:column;gap:8px;max-height:560px;overflow-y:auto;padding-right:4px}
+.rank-row{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--surface-2);border:1px solid transparent;border-radius:var(--r);cursor:pointer;transition:all var(--t)}
+.rank-row:hover{border-color:var(--accent);background:var(--surface);transform:translateX(2px);box-shadow:var(--shadow-sm)}
+.rank-pos{font-family:var(--fd);font-size:22px;font-weight:600;width:32px;text-align:center;color:var(--muted);flex-shrink:0;font-variant-numeric:tabular-nums}
+.rank-row:nth-child(1) .rank-pos{color:#fbbf24}
+.rank-row:nth-child(2) .rank-pos{color:#94a3b8}
+.rank-row:nth-child(3) .rank-pos{color:#fb923c}
+.avatar{width:44px;height:44px;border-radius:12px;background:var(--surface-3);display:grid;place-items:center;font-family:var(--fd);font-weight:600;font-size:16px;color:#fff;flex-shrink:0;overflow:hidden;background-size:cover;background-position:center}
+.avatar.lg{width:80px;height:80px;border-radius:20px;font-size:28px}
+.avatar.xl{width:120px;height:120px;border-radius:28px;font-size:42px}
+.avatar.sm{width:32px;height:32px;border-radius:8px;font-size:13px}
+.rank-info{flex:1;min-width:0}
+.rank-name{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--text)}
+.rank-meta{font-size:12px;color:var(--muted);margin-top:2px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.rank-score{text-align:right;flex-shrink:0}
+.rank-score .pct{font-family:var(--fd);font-size:22px;font-weight:600;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.rank-score .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.mini-bar{width:80px;height:5px;background:var(--surface-3);border-radius:999px;overflow:hidden;margin-top:6px;margin-left:auto}
+.mini-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--sky));border-radius:999px;transition:width 600ms cubic-bezier(.4,0,.2,1)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge-accent{background:var(--accent-soft);color:var(--accent)}
+.badge-amber{background:var(--amber-soft);color:var(--amber)}
+.badge-rose{background:var(--rose-soft);color:var(--rose)}
+.badge-sky{background:var(--sky-soft);color:var(--sky)}
+.badge-green{background:var(--green-soft);color:var(--green)}
+.badge-muted{background:var(--surface-3);color:var(--muted)}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* PROFILE */
+.profile-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:32px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:var(--shadow-sm)}
+.profile-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:140px;background:linear-gradient(135deg,var(--accent-soft),transparent 60%,var(--sky-soft));pointer-events:none}
+.profile-hero-content{position:relative;display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.profile-hero-info{flex:1;min-width:240px}
+.profile-hero h2{font-size:32px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.profile-hero-meta{display:flex;flex-wrap:wrap;gap:14px;color:var(--text-2);font-size:13px;margin-bottom:16px}
+.profile-hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.profile-hero-meta svg{width:14px;height:14px;color:var(--muted)}
+.profile-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto;position:sticky;top:68px;background:rgba(245,247,251,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:8px 0 0;z-index:20}
+.tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--t);white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.info-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.info-item{padding:14px 16px;background:var(--surface-2);border-radius:var(--r);border:1px solid var(--border)}
+.info-item .lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.info-item .val{font-size:14px;font-weight:500;color:var(--text)}
+.section-h{display:flex;align-items:center;justify-content:space-between;margin:24px 0 14px}
+.section-h h3{font-size:18px;font-weight:600}
+
+/* TASKS / GOALS */
+.task-list,.goal-list{display:flex;flex-direction:column;gap:10px}
+.task-row,.goal-row{padding:14px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);transition:all var(--t)}
+.task-row:hover,.goal-row:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm)}
+.task-row-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.task-title{font-weight:600;font-size:14px;color:var(--text)}
+.task-meta{display:flex;gap:14px;font-size:12px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.task-meta span{display:inline-flex;align-items:center;gap:4px}
+.task-meta svg{width:12px;height:12px}
+.progress{height:8px;background:var(--surface-3);border-radius:999px;overflow:hidden;margin-top:10px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--sky));border-radius:999px;transition:width 600ms cubic-bezier(.4,0,.2,1)}
+.progress-fill.amber{background:linear-gradient(90deg,var(--amber),#fbbf24)}
+.progress-fill.rose{background:linear-gradient(90deg,var(--rose),#fb7185)}
+.progress-fill.green{background:linear-gradient(90deg,var(--green),#34d399)}
+.rating-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--accent-soft);color:var(--accent);border-radius:999px;font-size:12px;font-weight:700;font-family:var(--fm);font-variant-numeric:tabular-nums}
+.rating-pill svg{width:11px;height:11px}
+
+/* ACTIVITY */
+.activity-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex-shrink:0}
+.activity-icon svg{width:14px;height:14px}
+.activity-content{flex:1;min-width:0}
+.activity-text{font-size:13px;line-height:1.5;color:var(--text-2)}
+.activity-text strong{font-weight:600;color:var(--text)}
+.activity-time{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* FAB */
+.fab-container{position:fixed;bottom:28px;right:28px;z-index:50}
+.fab-main{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px var(--accent-glow),0 4px 12px rgba(15,23,42,.2);cursor:pointer;transition:all var(--t);position:relative;border:none}
+.fab-main:hover{transform:scale(1.08)}
+.fab-main svg{width:24px;height:24px;transition:transform var(--t)}
+.fab-main.open svg{transform:rotate(45deg)}
+.fab-menu{position:absolute;bottom:70px;right:0;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+.fab-menu.open{pointer-events:auto}
+.fab-action{display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;background:var(--surface);border:1px solid var(--border);border-radius:999px;font-size:13px;font-weight:600;color:var(--text);box-shadow:var(--shadow);cursor:pointer;transition:all var(--t);opacity:0;transform:translateX(20px) scale(.9)}
+.fab-menu.open .fab-action{opacity:1;transform:translateX(0) scale(1)}
+.fab-menu.open .fab-action:nth-child(1){transition-delay:30ms}
+.fab-menu.open .fab-action:nth-child(2){transition-delay:60ms}
+.fab-menu.open .fab-action:nth-child(3){transition-delay:90ms}
+.fab-menu.open .fab-action:nth-child(4){transition-delay:120ms}
+.fab-menu.open .fab-action:nth-child(5){transition-delay:150ms}
+.fab-menu.open .fab-action:nth-child(6){transition-delay:180ms}
+.fab-menu.open .fab-action:nth-child(7){transition-delay:210ms}
+.fab-action-icon{width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.fab-action-icon svg{width:14px;height:14px}
+.fab-action:hover{border-color:var(--accent);transform:translateX(-2px)}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 200ms ease}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;animation:modalIn 300ms cubic-bezier(.4,0,.2,1);box-shadow:var(--shadow-lg)}
+.modal.lg{max-width:760px}
+.modal-h{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:5;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.modal-h-title{font-size:18px;font-weight:600;flex:1;font-family:var(--fd);color:var(--text)}
+.modal-h-close{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--muted);transition:all var(--t)}
+.modal-h-close:hover{background:var(--surface-3);color:var(--text)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;position:sticky;bottom:0;background:var(--surface)}
+
+/* FORM */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:6px}
+.form-control{width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;transition:all var(--t);color:var(--text);font-family:var(--fu)}
+.form-control:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea.form-control{resize:vertical;min-height:80px;font-family:inherit}
+select.form-control{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 10px center;padding-right:32px}
+input[type="file"].form-control{padding:8px;background:var(--surface);cursor:pointer}
+
+/* TOAST */
+#toast-root{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{padding:12px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13px;font-weight:500;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;animation:toastIn 300ms cubic-bezier(.4,0,.2,1);min-width:240px;color:var(--text);font-family:var(--fu)}
+.toast.success{border-color:var(--green)}
+.toast.success .toast-icon{color:var(--green)}
+.toast.error{border-color:var(--rose)}
+.toast.error .toast-icon{color:var(--rose)}
+.toast-icon{width:18px;height:18px;flex-shrink:0}
+
+/* NOTIFICATIONS PANEL */
+.notif-panel{position:fixed;top:68px;right:20px;width:360px;max-height:480px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);z-index:60;overflow:hidden;display:none;flex-direction:column}
+.notif-panel.open{display:flex;animation:fadeIn 200ms ease}
+.notif-panel-h{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.notif-panel-body{flex:1;overflow-y:auto}
+.notif-item{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;gap:10px;cursor:pointer;transition:background var(--t)}
+.notif-item:hover{background:var(--surface-2)}
+.notif-item.unread{background:var(--accent-soft)}
+.notif-item-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex-shrink:0}
+.notif-item-icon svg{width:13px;height:13px}
+.notif-item-content{flex:1;min-width:0}
+.notif-item-title{font-size:13px;font-weight:600;color:var(--text)}
+.notif-item-text{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+.notif-item-time{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* MISC */
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty svg{width:40px;height:40px;margin:0 auto 12px;opacity:.4}
+.divider{height:1px;background:var(--border);margin:20px 0}
+.tag{display:inline-flex;padding:3px 9px;background:var(--surface-3);border-radius:6px;font-size:12px;font-weight:500;margin:2px;color:var(--text-2)}
+.tag-accent{background:var(--accent-soft);color:var(--accent)}
+.tag-rose{background:var(--rose-soft);color:var(--rose)}
+.tag-amber{background:var(--amber-soft);color:var(--amber)}
+.tag-sky{background:var(--sky-soft);color:var(--sky)}
+
+/* REPORTS */
+.report-card{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);cursor:pointer;transition:all var(--t);display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-sm)}
+.report-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow)}
+.report-card-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center}
+.report-card-icon svg{width:20px;height:20px}
+.report-card h4{font-size:16px;font-weight:600;color:var(--text)}
+.report-card p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* RESPONSIVE */
+.menu-toggle{display:none}
+@media(max-width:1024px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-3,.grid-2-1,.grid-1-2{grid-template-columns:1fr}
+  .login-wrap{grid-template-columns:1fr}
+  .login-hero{display:none}
+  .info-grid,.info-grid-3{grid-template-columns:1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:grid}
+  .content{padding:16px}
+  .topbar{padding:0 16px}
+  .greeting h1{font-size:26px}
+  .profile-hero{padding:20px}
+  .profile-hero h2{font-size:24px}
+  .fab-container{bottom:20px;right:20px}
+  .topbar-search{display:none}
+  .login-hero h1{font-size:42px}
+  .login-hero{padding:32px}
+}
+.menu-toggle{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--text-2);transition:all var(--t)}
+.menu-toggle:hover{background:var(--surface-3);color:var(--accent)}
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:35;display:none}
+.overlay.show{display:block}
+
+@media print{
+  .sidebar,.topbar,.fab-container,.tabs,.profile-actions{display:none!important}
+  .content{padding:0!important}
+  .card,.profile-hero{break-inside:avoid;box-shadow:none!important}
+  body{background:#fff!important}
+}
+
+.fade-in{animation:fadeIn 400ms ease}
+.slide-up{animation:slideUp 400ms cubic-bezier(.4,0,.2,1)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent-glow);animation:pulse 2s infinite}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+
+<script>
+/* ============================================================
+   ICONS
+============================================================ */
+const I = {
+  dashboard:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>',
+  students:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  tasks:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  goals:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  batch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  reports:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+  analytics:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>',
+  trending:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+  trendingDown:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>',
+  award:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  message:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  briefcase:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  camera:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  arrowLeft:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>',
+  activity:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+  zap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+};
+
+/* ============================================================
+   SEED DATA
+============================================================ */
+function avatarDataUri(name) {
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
+  const hash = name.split('').reduce((a,c) => a + c.charCodeAt(0), 0);
+  const h1 = hash % 360;
+  const h2 = (h1 + 50) % 360;
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl('+h1+',65%,50%)"/><stop offset="1" stop-color="hsl('+h2+',65%,40%)"/></linearGradient></defs><rect width="200" height="200" fill="url(#g)"/><text x="100" y="115" font-family="Poppins, sans-serif" font-size="80" font-weight="600" fill="white" text-anchor="middle">'+initials+'</text></svg>';
+  return 'data:image/svg+xml;base64,' + btoa(svg);
+}
+
+function seed() {
+  const students = [
+    {
+      id:'s1', name:'Aarav Sharma', admissionNo:'ADM2024001', batch:'B-2024-A',
+      dob:'2006-04-15', gender:'Male', address:'42 MG Road, Indiranagar, Bangalore',
+      phone:'+91 90000 11111', email:'aarav.s@mentorship.edu', photo:null,
+      familyStatus:'Middle Class',
+      father:{name:'Rajesh Sharma', occupation:'Software Engineer', employed:true},
+      mother:{name:'Priya Sharma', occupation:'Teacher', employed:true},
+      siblings:[{name:'Diya Sharma', status:'Student'}],
+      challenges:{financial:'Low', educational:'Moderate', social:'Low', health:'None'},
+      mentorNotes:'Bright student with strong analytical skills. Needs encouragement in public speaking. Shows leadership potential in group activities.',
+      academics:{
+        class:'12th Standard', attendance:94, performance:88, gpa:3.8,
+        strongSubjects:['Mathematics','Physics','Computer Science'],
+        weakSubjects:['Literature'],
+        examResults:[{subject:'Mathematics',score:95},{subject:'Physics',score:91},{subject:'Chemistry',score:87},{subject:'Computer Science',score:98}],
+        readingHabits:'Avid reader — 4 books/month',
+        learningProgress:'Advanced',
+        gpaTrend:[3.5,3.6,3.7,3.7,3.8,3.8],
+        attendanceTrend:[90,92,91,94,95,94]
+      },
+      development:{
+        strengths:['Analytical thinking','Problem solving','Quick learner'],
+        weaknesses:['Public speaking','Time management'],
+        skills:['Python','Web Development','Data Analysis'],
+        talents:['Chess','Music composition'],
+        improvements:['Presentation skills','Group collaboration'],
+        leadership:7, communication:6, teamwork:8, creativity:9, discipline:8,
+        behaviour:'Excellent'
+      },
+      achievements:[
+        {title:'National Math Olympiad — Gold', date:'2024-03-15', type:'Competition'},
+        {title:'School Head Boy', date:'2024-06-01', type:'Leadership Roles'},
+        {title:'State Chess Championship — 2nd Place', date:'2024-09-20', type:'Sports'}
+      ],
+      goals:[
+        {id:'g1', title:'Master Advanced Calculus', desc:'Complete advanced calculus curriculum with 90% proficiency', targetDate:'2024-12-31', priority:'High', status:'In Progress', progress:65, category:'Semester Goals', feedback:'Excellent progress on derivatives', reflection:'Feeling confident about integration techniques'},
+        {id:'g2', title:'Build Portfolio Website', desc:'Create personal portfolio showcasing projects', targetDate:'2024-11-30', priority:'Medium', status:'In Progress', progress:40, category:'Career Goals', feedback:'Good start, focus on UX', reflection:'Learning React in process'}
+      ],
+      tasks:[
+        {id:'t1', title:'Research paper on quantum computing', desc:'Write a 10-page research paper', category:'Academic', assignedDate:'2024-10-01', deadline:'2024-11-15', priority:'High', status:'In Progress', rating:null, feedback:'', submission:''},
+        {id:'t2', title:'Code review of sorting algorithms', desc:'Review and optimize 3 sorting implementations', category:'Technical', assignedDate:'2024-10-15', deadline:'2024-10-25', priority:'Medium', status:'Completed', rating:9, feedback:'Excellent optimization insights', submission:'Submitted all 3 implementations with analysis'}
+      ]
+    },
+    {
+      id:'s2', name:'Ishita Verma', admissionNo:'ADM2024002', batch:'B-2024-A',
+      dob:'2006-07-22', gender:'Female', address:'18 Park Street, Kolkata',
+      phone:'+91 90000 22222', email:'ishita.v@mentorship.edu', photo:null,
+      familyStatus:'Affluent',
+      father:{name:'Vikram Verma', occupation:'Businessman', employed:true},
+      mother:{name:'Meera Verma', occupation:'Doctor', employed:true},
+      siblings:[{name:'Karan Verma', status:'Working'}],
+      challenges:{financial:'None', educational:'Low', social:'Low', health:'None'},
+      mentorNotes:'Exceptional communication skills. Natural leader. Should focus more on technical depth.',
+      academics:{
+        class:'12th Standard', attendance:96, performance:91, gpa:3.9,
+        strongSubjects:['English','Biology','History'],
+        weakSubjects:['Mathematics'],
+        examResults:[{subject:'English',score:97},{subject:'Biology',score:94},{subject:'History',score:92},{subject:'Mathematics',score:78}],
+        readingHabits:'Devours biographies — 6 books/month',
+        learningProgress:'Advanced',
+        gpaTrend:[3.7,3.8,3.8,3.9,3.9,3.9],
+        attendanceTrend:[94,95,96,96,97,96]
+      },
+      development:{
+        strengths:['Public speaking','Leadership','Empathy'],
+        weaknesses:['Technical skills','Numerical aptitude'],
+        skills:['Debate','Writing','Presentation'],
+        talents:['Classical Dance','Painting'],
+        improvements:['Programming','Statistics'],
+        leadership:9, communication:9, teamwork:9, creativity:8, discipline:9,
+        behaviour:'Excellent'
+      },
+      achievements:[
+        {title:'Best Speaker Award — National Debate', date:'2024-08-10', type:'Competitions'},
+        {title:'Student Council President', date:'2024-06-15', type:'Leadership Roles'},
+        {title:'Art Exhibition — Featured Artist', date:'2024-04-05', type:'Community Activities'}
+      ],
+      goals:[
+        {id:'g3', title:'Improve Mathematics to 85%+', desc:'Weekly practice and tutoring sessions', targetDate:'2024-12-31', priority:'High', status:'In Progress', progress:55, category:'Semester Goals', feedback:'Steady improvement visible', reflection:'Math is becoming less intimidating'}
+      ],
+      tasks:[
+        {id:'t3', title:'Lead student council meeting', desc:'Plan annual cultural fest', category:'Leadership', assignedDate:'2024-10-10', deadline:'2024-11-01', priority:'High', status:'Completed', rating:10, feedback:'Outstanding organization', submission:'Successfully led 3 planning meetings'}
+      ]
+    },
+    {
+      id:'s3', name:'Arjun Nair', admissionNo:'ADM2024003', batch:'B-2024-B',
+      dob:'2006-02-18', gender:'Male', address:'25 Marine Drive, Kochi',
+      phone:'+91 90000 33333', email:'arjun.n@mentorship.edu', photo:null,
+      familyStatus:'Poor',
+      father:{name:'Suresh Nair', occupation:'Daily wage laborer', employed:true},
+      mother:{name:'Lakshmi Nair', occupation:'Homemaker', employed:false},
+      siblings:[{name:'Anjali Nair', status:'Student'},{name:'Rahul Nair', status:'Student'}],
+      challenges:{financial:'High', educational:'Moderate', social:'Moderate', health:'Low'},
+      mentorNotes:'Hardworking and determined. Financial constraints affect access to resources. Recommend scholarship support.',
+      academics:{
+        class:'12th Standard', attendance:89, performance:82, gpa:3.4,
+        strongSubjects:['Physics','Mathematics'],
+        weakSubjects:['English','Chemistry'],
+        examResults:[{subject:'Physics',score:88},{subject:'Mathematics',score:85},{subject:'English',score:72},{subject:'Chemistry',score:75}],
+        readingHabits:'Moderate — 2 books/month',
+        learningProgress:'Steady',
+        gpaTrend:[3.1,3.2,3.3,3.3,3.4,3.4],
+        attendanceTrend:[85,87,88,89,90,89]
+      },
+      development:{
+        strengths:['Determination','Hardworking','Athletic'],
+        weaknesses:['Communication','Confidence'],
+        skills:['Football','Mechanics'],
+        talents:['Athletics','Singing'],
+        improvements:['Spoken English','Presentation'],
+        leadership:5, communication:5, teamwork:7, creativity:6, discipline:7,
+        behaviour:'Good'
+      },
+      achievements:[
+        {title:'District Football — Best Player', date:'2024-07-20', type:'Sports'},
+        {title:'Scholarship Recipient', date:'2024-05-10', type:'Awards'}
+      ],
+      goals:[
+        {id:'g4', title:'Secure engineering scholarship', desc:'Apply for 5 merit scholarships', targetDate:'2025-03-31', priority:'High', status:'In Progress', progress:30, category:'Career Goals', feedback:'Started applications, keep pushing', reflection:'Need help with essay writing'}
+      ],
+      tasks:[
+        {id:'t4', title:'Career counseling session', desc:'Attend session with career advisor', category:'Career', assignedDate:'2024-10-20', deadline:'2024-11-05', priority:'High', status:'Completed', rating:8, feedback:'Good engagement', submission:'Attended session, identified 3 career paths'}
+      ]
+    },
+    {
+      id:'s4', name:'Sneha Reddy', admissionNo:'ADM2024004', batch:'B-2024-B',
+      dob:'2006-09-03', gender:'Female', address:'12 Banjara Hills, Hyderabad',
+      phone:'+91 90000 44444', email:'sneha.r@mentorship.edu', photo:null,
+      familyStatus:'Middle Class',
+      father:{name:'Krishna Reddy', occupation:'Government Officer', employed:true},
+      mother:{name:'Saritha Reddy', occupation:'Bank Manager', employed:true},
+      siblings:[],
+      challenges:{financial:'Low', educational:'Low', social:'Low', health:'None'},
+      mentorNotes:'Creative and innovative thinker. Strong in design and arts. Encourage participation in innovation challenges.',
+      academics:{
+        class:'12th Standard', attendance:92, performance:85, gpa:3.6,
+        strongSubjects:['Chemistry','Biology','Art'],
+        weakSubjects:['Mathematics'],
+        examResults:[{subject:'Chemistry',score:91},{subject:'Biology',score:88},{subject:'Mathematics',score:75},{subject:'Art',score:95}],
+        readingHabits:'Creative writing — 3 books/month',
+        learningProgress:'Advanced',
+        gpaTrend:[3.4,3.5,3.5,3.6,3.6,3.6],
+        attendanceTrend:[90,91,92,92,93,92]
+      },
+      development:{
+        strengths:['Creativity','Innovation','Design thinking'],
+        weaknesses:['Numerical reasoning','Time management'],
+        skills:['UI/UX Design','Sketching','Content Writing'],
+        talents:['Painting','Storytelling'],
+        improvements:['Quantitative aptitude','Scheduling'],
+        leadership:6, communication:7, teamwork:7, creativity:9, discipline:6,
+        behaviour:'Good'
+      },
+      achievements:[
+        {title:'National Design Challenge — Winner', date:'2024-08-25', type:'Competitions'},
+        {title:'Art Club Secretary', date:'2024-06-20', type:'Leadership Roles'}
+      ],
+      goals:[
+        {id:'g5', title:'Launch design portfolio', desc:'Build 10 design projects', targetDate:'2024-12-15', priority:'Medium', status:'In Progress', progress:50, category:'Career Goals', feedback:'Great creative direction', reflection:'Learning Figma alongside'}
+      ],
+      tasks:[
+        {id:'t5', title:'Design school magazine cover', desc:'Create cover for annual magazine', category:'Creative', assignedDate:'2024-10-15', deadline:'2024-11-10', priority:'Medium', status:'In Progress', rating:null, feedback:'', submission:''}
+      ]
+    },
+    {
+      id:'s5', name:'Vivaan Gupta', admissionNo:'ADM2024005', batch:'B-2024-C',
+      dob:'2006-11-12', gender:'Male', address:'8 Civil Lines, Delhi',
+      phone:'+91 90000 55555', email:'vivaan.g@mentorship.edu', photo:null,
+      familyStatus:'Affluent',
+      father:{name:'Anil Gupta', occupation:'Architect', employed:true},
+      mother:{name:'Pooja Gupta', occupation:'Interior Designer', employed:true},
+      siblings:[{name:'Sara Gupta', status:'Student'}],
+      challenges:{financial:'None', educational:'Low', social:'Low', health:'None'},
+      mentorNotes:'Tech-savvy with entrepreneurial mindset. Needs to focus more on academics vs side projects.',
+      academics:{
+        class:'12th Standard', attendance:78, performance:75, gpa:3.1,
+        strongSubjects:['Computer Science','Economics'],
+        weakSubjects:['Physics','Chemistry'],
+        examResults:[{subject:'Computer Science',score:88},{subject:'Economics',score:82},{subject:'Physics',score:68},{subject:'Chemistry',score:65}],
+        readingHabits:'Tech blogs only',
+        learningProgress:'Steady',
+        gpaTrend:[3.3,3.2,3.1,3.0,3.1,3.1],
+        attendanceTrend:[85,82,80,78,77,78]
+      },
+      development:{
+        strengths:['Entrepreneurial thinking','Tech skills','Networking'],
+        weaknesses:['Attendance','Academic focus','Patience'],
+        skills:['Web Dev','Marketing','Stock Trading'],
+        talents:['Public speaking','Coding'],
+        improvements:['Consistency','Subject depth'],
+        leadership:7, communication:8, teamwork:6, creativity:7, discipline:5,
+        behaviour:'Satisfactory'
+      },
+      achievements:[
+        {title:'Startup Pitch Competition — 1st', date:'2024-09-15', type:'Competitions'},
+        {title:'Founded tech community (500+ members)', date:'2024-04-10', type:'Leadership Roles'}
+      ],
+      goals:[
+        {id:'g6', title:'Improve attendance to 90%+', desc:'Daily tracking and accountability', targetDate:'2024-12-31', priority:'High', status:'Delayed', progress:20, category:'Monthly Goals', feedback:'Must take this seriously', reflection:'Struggling with morning schedule'}
+      ],
+      tasks:[
+        {id:'t6', title:'Submit physics lab reports', desc:'3 pending lab reports', category:'Academic', assignedDate:'2024-10-01', deadline:'2024-10-30', priority:'High', status:'Overdue', rating:null, feedback:'', submission:''}
+      ]
+    },
+    {
+      id:'s6', name:'Ananya Iyer', admissionNo:'ADM2024006', batch:'B-2024-C',
+      dob:'2006-06-08', gender:'Female', address:'30 Anna Salai, Chennai',
+      phone:'+91 90000 66666', email:'ananya.i@mentorship.edu', photo:null,
+      familyStatus:'Middle Class',
+      father:{name:'Karthik Iyer', occupation:'Professor', employed:true},
+      mother:{name:'Divya Iyer', occupation:'Software Developer', employed:true},
+      siblings:[{name:'Karthik Iyer Jr.', status:'Student'}],
+      challenges:{financial:'Low', educational:'Low', social:'Low', health:'None'},
+      mentorNotes:'Quietly brilliant. Excels in research. Should participate more in class discussions.',
+      academics:{
+        class:'12th Standard', attendance:97, performance:93, gpa:3.95,
+        strongSubjects:['Biology','Chemistry','Mathematics'],
+        weakSubjects:['Physical Education'],
+        examResults:[{subject:'Biology',score:98},{subject:'Chemistry',score:95},{subject:'Mathematics',score:92},{subject:'Physics',score:90}],
+        readingHabits:'Research papers — extensive',
+        learningProgress:'Advanced',
+        gpaTrend:[3.8,3.85,3.9,3.92,3.95,3.95],
+        attendanceTrend:[95,96,97,97,98,97]
+      },
+      development:{
+        strengths:['Research','Analytical writing','Discipline'],
+        weaknesses:['Speaking up','Social confidence'],
+        skills:['Lab techniques','Statistical analysis','Academic writing'],
+        talents:['Scientific illustration'],
+        improvements:['Public speaking','Networking'],
+        leadership:5, communication:6, teamwork:7, creativity:8, discipline:10,
+        behaviour:'Excellent'
+      },
+      achievements:[
+        {title:'National Science Fair — Gold', date:'2024-08-30', type:'Competitions'},
+        {title:'Published in student journal', date:'2024-07-15', type:'Awards'}
+      ],
+      goals:[
+        {id:'g7', title:'NEET exam preparation', desc:'Daily 4 hour study schedule', targetDate:'2025-05-01', priority:'High', status:'In Progress', progress:75, category:'Long-Term Goals', feedback:'Excellent consistency', reflection:'Feeling well-prepared'}
+      ],
+      tasks:[
+        {id:'t7', title:'Biology research project', desc:'Genetics study with documentation', category:'Academic', assignedDate:'2024-10-05', deadline:'2024-11-20', priority:'High', status:'In Progress', rating:null, feedback:'', submission:''}
+      ]
+    },
+    {
+      id:'s7', name:'Kabir Khan', admissionNo:'ADM2024007', batch:'B-2024-A',
+      dob:'2006-03-25', gender:'Male', address:'22 Hazratganj, Lucknow',
+      phone:'+91 90000 77777', email:'kabir.k@mentorship.edu', photo:null,
+      familyStatus:'Middle Class',
+      father:{name:'Imran Khan', occupation:'Lawyer', employed:true},
+      mother:{name:'Saima Khan', occupation:'Journalist', employed:true},
+      siblings:[{name:'Aisha Khan', status:'Working'}],
+      challenges:{financial:'Low', educational:'Low', social:'Low', health:'Low'},
+      mentorNotes:'Excellent debater and writer. Strong opinions. Channel energy constructively.',
+      academics:{
+        class:'12th Standard', attendance:91, performance:86, gpa:3.7,
+        strongSubjects:['History','Political Science','English'],
+        weakSubjects:['Mathematics'],
+        examResults:[{subject:'History',score:93},{subject:'Political Science',score:90},{subject:'English',score:88},{subject:'Mathematics',score:74}],
+        readingHabits:'Politics & history — 5 books/month',
+        learningProgress:'Advanced',
+        gpaTrend:[3.5,3.6,3.6,3.7,3.7,3.7],
+        attendanceTrend:[89,90,91,91,92,91]
+      },
+      development:{
+        strengths:['Critical thinking','Debate','Writing'],
+        weaknesses:['Mathematics','Patience with peers'],
+        skills:['Moot Court','Essay Writing','Research'],
+        talents:['Public speaking','Drama'],
+        improvements:['Numerical aptitude','Collaboration'],
+        leadership:8, communication:9, teamwork:6, creativity:8, discipline:7,
+        behaviour:'Good'
+      },
+      achievements:[
+        {title:'National Moot Court — Best Advocate', date:'2024-09-25', type:'Competitions'},
+        {title:'Editor — School Magazine', date:'2024-06-10', type:'Leadership Roles'}
+      ],
+      goals:[
+        {id:'g8', title:'Apply to law schools', desc:'Prepare for CLAT exam', targetDate:'2024-12-31', priority:'High', status:'In Progress', progress:60, category:'Career Goals', feedback:'Good preparation rhythm', reflection:'Confident about logical reasoning'}
+      ],
+      tasks:[
+        {id:'t8', title:'Write editorial for magazine', desc:'1500 word editorial on climate policy', category:'Writing', assignedDate:'2024-10-15', deadline:'2024-11-05', priority:'Medium', status:'Completed', rating:9, feedback:'Powerful writing', submission:'Submitted 1600 word piece'}
+      ]
+    },
+    {
+      id:'s8', name:'Diya Patel', admissionNo:'ADM2024008', batch:'B-2024-B',
+      dob:'2006-08-14', gender:'Female', address:'5 Satellite Road, Ahmedabad',
+      phone:'+91 90000 88888', email:'diya.p@mentorship.edu', photo:null,
+      familyStatus:'Middle Class',
+      father:{name:'Nilesh Patel', occupation:'Pharmacist', employed:true},
+      mother:{name:'Hetal Patel', occupation:'Teacher', employed:true},
+      siblings:[{name:'Yash Patel', status:'Student'}],
+      challenges:{financial:'Low', educational:'Low', social:'Low', health:'Moderate'},
+      mentorNotes:'Has asthma — ensure accommodation during physical activities. Strong in arts and sciences.',
+      academics:{
+        class:'12th Standard', attendance:88, performance:84, gpa:3.5,
+        strongSubjects:['Chemistry','Biology','Art'],
+        weakSubjects:['Physics'],
+        examResults:[{subject:'Chemistry',score:89},{subject:'Biology',score:87},{subject:'Physics',score:72},{subject:'Art',score:94}],
+        readingHabits:'Mixed — 3 books/month',
+        learningProgress:'Steady',
+        gpaTrend:[3.3,3.4,3.4,3.5,3.5,3.5],
+        attendanceTrend:[86,87,88,88,89,88]
+      },
+      development:{
+        strengths:['Artistic','Empathetic','Detail-oriented'],
+        weaknesses:['Physical stamina','Public speaking'],
+        skills:['Painting','Yoga','First Aid'],
+        talents:['Classical Music','Sketching'],
+        improvements:['Confidence','Presentation'],
+        leadership:6, communication:6, teamwork:8, creativity:9, discipline:7,
+        behaviour:'Excellent'
+      },
+      achievements:[
+        {title:'State Art Competition — 1st', date:'2024-08-15', type:'Competitions'},
+        {title:'Volunteer at animal shelter', date:'2024-05-20', type:'Community Activities'}
+      ],
+      goals:[
+        {id:'g9', title:'Build art portfolio for design school', desc:'15 portfolio pieces', targetDate:'2025-01-31', priority:'Medium', status:'In Progress', progress:45, category:'Career Goals', feedback:'Beautiful work so far', reflection:'Finding my style'}
+      ],
+      tasks:[
+        {id:'t9', title:'Sketch series on Indian heritage', desc:'10 sketches on monuments', category:'Creative', assignedDate:'2024-10-10', deadline:'2024-11-15', priority:'Medium', status:'In Progress', rating:null, feedback:'', submission:''}
+      ]
+    }
+  ];
+
+  return {
+    mentor: {
+      name:'Dr. Ananya Rao',
+      designation:'Senior Academic Mentor',
+      email:'ananya.rao@mentorship.edu',
+      phone:'+91 98765 43210',
+      photo:null,
+      batches:['B-2024-A','B-2024-B','B-2024-C']
+    },
+    students,
+    batches:[
+      {id:'b1', name:'B-2024-A', year:'2024-2025'},
+      {id:'b2', name:'B-2024-B', year:'2024-2025'},
+      {id:'b3', name:'B-2024-C', year:'2024-2025'}
+    ],
+    notifications:[
+      {id:'n1', title:'Task Overdue', text:'Vivaan Gupta has an overdue physics lab report', time:'2h ago', icon:'alert', color:'rose', unread:true, target: 'all'},
+      {id:'n2', title:'Goal Deadline Approaching', text:'5 goals due within 30 days', time:'5h ago', icon:'flag', color:'amber', unread:true, target: 'all'},
+      {id:'n3', title:'Attendance Warning', text:'Vivaan Gupta below 80% attendance', time:'1d ago', icon:'alert', color:'rose', unread:true, target: 'all'},
+      {id:'n4', title:'New Achievement', text:'Ananya Iyer won Gold at National Science Fair', time:'2d ago', icon:'award', color:'accent', unread:false, target: 'all'},
+      {id:'n5', title:'Task Submitted', text:'Kabir Khan submitted editorial', time:'3d ago', icon:'check', color:'green', unread:false, target: 'all'}
+    ],
+    activity:[
+      {text:'<strong>Aarav Sharma</strong> submitted quantum computing research draft', time:'1h ago', icon:'tasks', color:'accent'},
+      {text:'<strong>Ishita Verma</strong> completed student council meeting with 10/10 rating', time:'3h ago', icon:'star', color:'amber'},
+      {text:'<strong>Ananya Iyer</strong> reached 75% on NEET preparation goal', time:'5h ago', icon:'flag', color:'green'},
+      {text:'<strong>Vivaan Gupta</strong> missed physics lab deadline', time:'1d ago', icon:'alert', color:'rose'},
+      {text:'<strong>Sneha Reddy</strong> won National Design Challenge', time:'2d ago', icon:'award', color:'amber'}
+    ]
+  };
+}
+
+/* ============================================================
+   STATE & STORAGE
+============================================================ */
+const IS_LOCAL = window.location.protocol === 'file:';
+const API_BASE = IS_LOCAL ? '' : '/api';
+const STORAGE_KEY = 'mentorship-data';
+let data = null;
+let state = {
+  view: 'login',
+  role: null,
+  user: null,
+  studentId: null,
+  tab: 'overview',
+  search: '',
+  filterBatch: 'all',
+  sortBy: 'performance',
+  fabOpen: false,
+  notifOpen: false,
+  sidebarOpen: false,
+  charts: {},
+  system: {}
+};
+
+function shouldFetchSystemStats() {
+  if (IS_LOCAL) return false;
+  return !state.system?.lastFetched || Date.now() - state.system.lastFetched > 30000;
+}
+
+// DEBUG: show runtime flags on the page for troubleshooting white screen
+function formatBytes(bytes) {
+  if (!bytes && bytes !== 0) return '—';
+  const units = ['B','KB','MB','GB','TB'];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit += 1;
+  }
+  return value.toFixed(1) + ' ' + units[unit];
+}
+
+async function fetchSystemStats() {
+  if (IS_LOCAL) {
+    return;
+  }
+
+  try {
+    const res = await fetch(API_BASE + '/system');
+    if (res.ok) {
+      state.system = await res.json();
+      state.system.lastFetched = Date.now();
+    }
+  } catch (e) {
+    console.warn('Unable to fetch system stats', e);
+    state.system.lastFetched = Date.now();
+  }
+}
+
+async function load() {
+  const local = localStorage.getItem(STORAGE_KEY);
+  const isValidData = (obj) => {
+    try {
+      return obj && Array.isArray(obj.students) && Array.isArray(obj.batches) && typeof obj.mentor === 'object';
+    } catch (e) { return false; }
+  };
+
+  if (local) {
+    try {
+      const parsed = JSON.parse(local);
+      if (isValidData(parsed)) return parsed;
+      console.warn('Local storage data missing required keys, ignoring.');
+    } catch (e) { console.warn('Invalid local storage data, ignoring.', e); }
+  }
+
+  if (!IS_LOCAL) {
+    try {
+      const res = await fetch(API_BASE + '/data');
+      if (res.ok) {
+        const serverDataText = await res.text();
+        try {
+          const serverData = JSON.parse(serverDataText || '{}');
+          if (isValidData(serverData)) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(serverData));
+            return serverData;
+          }
+        } catch (e) {
+          console.warn('Server returned invalid JSON, ignoring.', e);
+        }
+      }
+    } catch (e) {
+      console.warn('Server load failed, using default seed.', e);
+    }
+  }
+
+  const d = seed();
+  await save(d);
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch (e) { console.warn('Unable to write seed to localStorage', e); }
+  return d;
+}
+
+let isSaving = false;
+async function save(payload = data) {
+  if (isSaving) return; // Prevent multiple simultaneous saves
+  isSaving = true;
+  
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch (e) {
+    console.warn('Unable to save local data', e);
+  }
+
+  if (!IS_LOCAL) {
+    try {
+      const response = await fetch(API_BASE + '/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Server error: ' + response.status);
+      }
+      
+      console.log('Data saved to server successfully');
+    } catch (e) {
+      console.error('Unable to save data to server', e);
+      toast('Failed to save data: ' + e.message, 'error');
+    }
+  }
+  
+  isSaving = false;
+}
+
+async function resetData() {
+  try {
+    await fetch(API_BASE + '/reset', { method: 'POST' });
+  } catch (e) {
+    console.error('Unable to reset server data file', e);
+  }
+  localStorage.removeItem(STORAGE_KEY);
+  data = await load();
+  state.view = 'login';
+  state.role = null;
+  state.user = null;
+  render();
+}
+
+/* ============================================================
+   UTILS
+============================================================ */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+function uid() { return 'id' + Date.now() + Math.random().toString(36).slice(2,7); }
+function esc(s) { return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+(+b||0),0)/arr.length : 0; }
+
+function computePerformance(s) {
+  if (!s) return 0;
+  const tasksDone = s.tasks.filter(t => t.status === 'Completed').length;
+  const taskRate = s.tasks.length ? tasksDone / s.tasks.length : 0;
+  const ratedTasks = s.tasks.filter(t => t.rating);
+  const avgRating = ratedTasks.length ? avg(ratedTasks.map(t => t.rating)) / 10 : 0;
+  const academic = (s.academics?.performance || 0) / 100;
+  const attendance = (s.academics?.attendance || 0) / 100;
+  const goalRate = s.goals.length ? avg(s.goals.map(g => g.progress/100)) : 0;
+  const d = s.development || {};
+  const devScore = avg([d.leadership, d.communication, d.teamwork, d.creativity, d.discipline].map(v => (v||0)/10));
+  const score = taskRate*0.18 + avgRating*0.12 + academic*0.25 + attendance*0.15 + goalRate*0.2 + devScore*0.1;
+  return Math.round(score * 100);
+}
+function computeScores(s) {
+  const d = s.development || {};
+  const academic = s.academics?.performance || 0;
+  const leadership = (d.leadership||0) * 10;
+  const discipline = (d.discipline||0) * 10;
+  const taskRate = s.tasks.length ? s.tasks.filter(t=>t.status==='Completed').length/s.tasks.length : 0;
+  const consistency = Math.round((taskRate*0.5 + (s.academics?.attendance||0)/100*0.5)*100);
+  const goalAch = s.goals.length ? avg(s.goals.map(g=>g.progress)) : 0;
+  const growth = Math.round(avg([academic, leadership, discipline, consistency, goalAch]));
+  return { academic, leadership, discipline, consistency, growth, goalAch: Math.round(goalAch) };
+}
+function age(dob) {
+  if (!dob) return '—';
+  const d = new Date(dob);
+  const diff = Date.now() - d.getTime();
+  return Math.floor(diff / (365.25 * 24 * 3600 * 1000)) + ' years';
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+function avatarUrl(s) {
+  if (s.photo) return s.photo;
+  return avatarDataUri(s.name);
+}
+function mentorAvatarUrl() {
+  if (data.mentor.photo) return data.mentor.photo;
+  return avatarDataUri(data.mentor.name);
+}
+function greetingTime() {
+  const h = new Date().getHours();
+  if (h < 12) return 'morning';
+  if (h < 17) return 'afternoon';
+  return 'evening';
+}
+
+/* ============================================================
+   TOAST & MODAL
+============================================================ */
+function toast(msg, type='success') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  const icon = type === 'success' ? I.check : I.alert;
+  t.innerHTML = '<span class="toast-icon">' + icon + '</span><span>' + esc(msg) + '</span>';
+  $('#toast-root').appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(20px)'; t.style.transition = 'all 300ms'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+function modal(opts) {
+  const root = $('#modal-root');
+  const m = document.createElement('div');
+  m.innerHTML = '<div class="modal-backdrop" data-close><div class="modal ' + (opts.size||'') + '" onclick="event.stopPropagation()"><div class="modal-h"><div class="modal-h-title">' + opts.title + '</div><button class="modal-h-close" data-close>' + I.close + '</button></div><div class="modal-body">' + opts.body + '</div>' + (opts.footer ? '<div class="modal-footer">' + opts.footer + '</div>' : '') + '</div></div>';
+  root.appendChild(m);
+  m.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => m.remove()));
+  return m;
+}
+function confirmModal(msg, onYes) {
+  const m = modal({
+    title:'Please confirm',
+    body:'<p style="font-size:14px;line-height:1.6;color:var(--text-2)">' + esc(msg) + '</p>',
+    footer:'<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="confirm-yes">Confirm</button>'
+  });
+  m.querySelector('#confirm-yes').addEventListener('click', () => { onYes(); m.remove(); });
+}
+
+/* ============================================================
+   AUTH
+============================================================ */
+function loginMentor(username, password) {
+  if (username === 'bk' && password === '123') {
+    state.role = 'mentor';
+    state.user = data.mentor;
+    state.view = 'dashboard';
+    render();
+    return true;
+  }
+  return false;
+}
+
+function normalizeStudentName(name) {
+  return name.trim().toLowerCase().replace(/^(muhammed|muhammad|mohammed|mohamed)\s+/i, '').trim();
+}
+
+function loginStudent(name, password) {
+  const inputName = normalizeStudentName(name);
+  const s = data.students.find(s => {
+    const studentName = s.name.trim().toLowerCase();
+    const studentNameNormalized = normalizeStudentName(studentName);
+    return inputName === studentName || inputName === studentNameNormalized;
+  });
+  if (s && password === s.admissionNo) {
+    state.role = 'student';
+    state.user = s;
+    state.studentId = s.id;
+    state.view = 'student-dash';
+    render();
+    return true;
+  }
+  return false;
+}
+function logout() {
+  state.role = null; state.user = null; state.studentId = null; state.view = 'login';
+  render();
+}
+
+/* ============================================================
+   LOGIN VIEW
+============================================================ */
+function loginView() {
+  return '' +
+    '<div class="login-wrap">' +
+      '<div class="login-hero">' +
+        '<div class="login-logo"><div class="login-logo-mark">M</div><div>Mentorship</div></div>' +
+        '<div class="login-hero-content">' +
+          '<h1>Guiding every<br>student toward<br><em>their potential.</em></h1>' +
+          '<p>A premium mentoring platform for academic, personal, and professional development. Track goals, evaluate tasks, monitor growth — all in one place.</p>' +
+        '</div>' +
+        '<div class="login-hero-stats">' +
+          '<div class="login-hero-stat"><span class="num">8</span><span class="lbl">Active Students</span></div>' +
+          '<div class="login-hero-stat"><span class="num">3</span><span class="lbl">Batches</span></div>' +
+          '<div class="login-hero-stat"><span class="num">94%</span><span class="lbl">Goal Success</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="login-form-side">' +
+        '<div class="login-card">' +
+          '<h2>Welcome back</h2>' +
+          '<p class="sub">Sign in to continue to your dashboard.</p>' +
+          '<div class="role-toggle">' +
+            '<button class="active" data-role="mentor">Mentor Login</button>' +
+            '<button data-role="student">Student Login</button>' +
+          '</div>' +
+          '<form id="login-form">' +
+            '<div class="field"><label id="user-lbl">Username</label><div class="input-wrap"><span class="input-icon">' + I.user + '</span><input class="input with-icon" id="login-user" placeholder="Enter username" autocomplete="off" required /></div></div>' +
+            '<div class="field"><label id="pass-lbl">Password</label><div class="input-wrap"><span class="input-icon">' + I.lock + '</span><input class="input with-icon" id="login-pass" type="password" placeholder="Enter password" required /></div></div>' +
+            '<button type="submit" class="btn btn-primary btn-block btn-lg login-cta">Sign In</button>' +
+          '</form>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function loginMount() {
+  let role = 'mentor';
+  const updateRole = (r) => {
+    role = r;
+    $$('.role-toggle button').forEach(b => b.classList.toggle('active', b.dataset.role === r));
+    $('#user-lbl').textContent = r === 'mentor' ? 'Username' : 'Student Name';
+    $('#login-user').placeholder = r === 'mentor' ? 'Enter username' : 'e.g. Aarav Sharma';
+    $('#pass-lbl').textContent = r === 'mentor' ? 'Password' : 'Admission Number';
+    $('#login-pass').placeholder = r === 'mentor' ? 'Enter password' : 'e.g. ADM2024001';
+  };
+  $$('.role-toggle button').forEach(b => b.addEventListener('click', () => updateRole(b.dataset.role)));
+  
+  $('#login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const u = $('#login-user').value.trim();
+    const p = $('#login-pass').value;
+    const ok = role === 'mentor' ? loginMentor(u, p) : loginStudent(u, p);
+    if (!ok) toast('Invalid credentials. Please try again.', 'error');
+  });
+}
+
+/* ============================================================
+   APP SHELL
+============================================================ */
+function shell(content) {
+  const isMentor = state.role === 'mentor';
+  const navItems = isMentor ? [
+    {id:'dashboard', label:'Dashboard', icon:I.dashboard},
+    {id:'students', label:'Students', icon:I.students},
+    {id:'tasks', label:'Tasks', icon:I.tasks, badge: data.students.reduce((a,s)=>a+s.tasks.filter(t=>t.status!=='Completed').length,0)},
+    {id:'goals', label:'Goals', icon:I.goals},
+    {id:'batches', label:'Batches', icon:I.batch},
+    {id:'analytics', label:'Analytics', icon:I.analytics},
+    {id:'reports', label:'Reports', icon:I.reports},
+    {id:'settings', label:'Settings', icon:I.settings}
+  ] : [
+    {id:'student-dash', label:'Dashboard', icon:I.dashboard},
+    {id:'student-profile', label:'My Profile', icon:I.user},
+    {id:'student-tasks', label:'My Tasks', icon:I.tasks},
+    {id:'student-goals', label:'My Goals', icon:I.goals},
+    {id:'student-achievements', label:'Achievements', icon:I.award},
+    {id:'student-development', label:'Development', icon:I.zap},
+    {id:'student-performance', label:'Performance', icon:I.trending},
+    {id:'student-notifications', label:'Notifications', icon:I.bell}
+  ];
+  
+  return '' +
+    '<div class="overlay" id="overlay"></div>' +
+    '<div class="app">' +
+      '<aside class="sidebar" id="sidebar">' +
+        '<div class="sidebar-logo"><div class="mark">M</div><div>Mentorship</div></div>' +
+        '<div class="nav-section">' + (isMentor ? 'Mentor' : 'Student') + '</div>' +
+        navItems.map(n => '<div class="nav-item ' + (state.view === n.id ? 'active':'') + '" data-nav="' + n.id + '">' + n.icon + '<span>' + n.label + '</span>' + (n.badge ? '<span class="nav-badge">' + n.badge + '</span>' : '') + '</div>').join('') +
+        '<div class="sidebar-footer">' +
+          '<div class="mentor-mini" data-nav="' + (isMentor ? 'settings' : 'student-profile') + '">' +
+            '<div class="avatar sm" style="background-image:url(\'' + (isMentor ? mentorAvatarUrl() : avatarUrl(state.user)) + '\')"></div>' +
+            '<div style="overflow:hidden"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(isMentor ? data.mentor.name : state.user.name) + '</div><div style="font-size:11px;color:var(--muted)">' + (isMentor ? 'Mentor' : 'Student') + '</div></div>' +
+          '</div>' +
+          '<button class="nav-item" id="logout-btn" style="margin-top:4px;color:var(--muted)">' + I.logout + '<span>Sign out</span></button>' +
+        '</div>' +
+      '</aside>' +
+      '<div class="main">' +
+        '<header class="topbar">' +
+          '<button class="menu-toggle icon-btn" id="menu-toggle">' + I.menu + '</button>' +
+          '<div class="topbar-search"><button id="global-search-btn" class="icon-btn" title="Search">' + I.search + '</button><input id="global-search" placeholder="Search students, admission no, batch..." value="' + esc(state.search) + '" /></div>' +
+          '<div class="topbar-actions">' +
+            (isMentor ? '<button class="icon-btn" id="notif-btn" title="Notifications">' + I.bell + (data.notifications.filter(n=>n.unread).length ? '<span class="dot"></span>':'') + '</button>' : '') +
+          '</div>' +
+        '</header>' +
+        '<main class="content">' + content + '</main>' +
+      '</div>' +
+    '</div>' +
+    (isMentor ? fabView() : '') +
+    (isMentor ? notifPanel() : '');
+}
+
+function fabView() {
+  return '' +
+    '<div class="fab-container">' +
+      '<div class="fab-menu ' + (state.fabOpen ? 'open':'') + '" id="fab-menu">' +
+        '<div class="fab-action" data-action="add-student"><div class="fab-action-icon">' + I.user + '</div>Add Student</div>' +
+        '<div class="fab-action" data-action="add-task"><div class="fab-action-icon">' + I.tasks + '</div>Create Task</div>' +
+        '<div class="fab-action" data-action="add-goal"><div class="fab-action-icon">' + I.flag + '</div>Create Goal</div>' +
+        '<div class="fab-action" data-action="add-batch"><div class="fab-action-icon">' + I.batch + '</div>Create Batch</div>' +
+        '<div class="fab-action" data-action="add-achievement"><div class="fab-action-icon">' + I.award + '</div>Add Achievement</div>' +
+        '<div class="fab-action" data-action="send-notif"><div class="fab-action-icon">' + I.bell + '</div>Send Notification</div>' +
+        '<div class="fab-action" data-action="upload-report"><div class="fab-action-icon">' + I.upload + '</div>Upload Report</div>' +
+      '</div>' +
+      '<button class="fab-main ' + (state.fabOpen ? 'open':'') + '" id="fab-main">' + I.plus + '</button>' +
+    '</div>';
+}
+
+function notifPanel() {
+  return '' +
+    '<div class="notif-panel ' + (state.notifOpen ? 'open':'') + '" id="notif-panel">' +
+      '<div class="notif-panel-h"><strong>Notifications</strong><button class="icon-btn" style="width:28px;height:28px" id="notif-close">' + I.close + '</button></div>' +
+      '<div class="notif-panel-body">' +
+        data.notifications.map(n => '<div class="notif-item ' + (n.unread ? 'unread':'') + '"><div class="notif-item-icon" style="background:var(--' + n.color + '-soft);color:var(--' + n.color + ')">' + (I[n.icon] || I.bell) + '</div><div class="notif-item-content"><div class="notif-item-title">' + esc(n.title) + '</div><div class="notif-item-text">' + esc(n.text) + '</div><div class="notif-item-time">' + esc(n.time) + '</div></div></div>').join('') +
+      '</div>' +
+    '</div>';
+}
+
+/* ============================================================
+   MENTOR DASHBOARD
+============================================================ */
+function dashboardView() {
+  const totalStudents = data.students.length;
+  const activeStudents = data.students.filter(s => s.academics.attendance >= 75).length;
+  const totalBatches = data.batches.length;
+  const allTasks = data.students.flatMap(s => s.tasks);
+  const tasksAssigned = allTasks.length;
+  const tasksCompleted = allTasks.filter(t => t.status === 'Completed').length;
+  const tasksPending = allTasks.filter(t => t.status === 'In Progress' || t.status === 'Assigned').length;
+  const tasksOverdue = allTasks.filter(t => t.status === 'Overdue').length;
+  const allGoals = data.students.flatMap(s => s.goals);
+  const goalCompletionRate = allGoals.length ? Math.round(avg(allGoals.map(g => g.progress))) : 0;
+  const avgAttendance = Math.round(avg(data.students.map(s => s.academics.attendance)));
+  const overallPerformance = Math.round(avg(data.students.map(s => computePerformance(s))));
+  const sys = state.system || {};
+  const mem = sys.memoryUsage || {};
+  const heapPct = mem.heapTotal ? Math.round((mem.heapUsed / mem.heapTotal) * 100) : 0;
+  const osUsed = sys.osTotalMemory ? sys.osTotalMemory - sys.osFreeMemory : 0;
+  const osPct = sys.osTotalMemory ? Math.round((osUsed / sys.osTotalMemory) * 100) : 0;
+  const loadText = sys.loadavg ? sys.loadavg.map(v => v.toFixed(2)).join(', ') : '—';
+  const uptime = sys.uptime ? Math.round(sys.uptime) + 's' : '—';
+
+  return '' +
+    '<div class="fade-in">' +
+      '<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Mentor account: ' + esc(data.mentor.name) + '</div>' +
+      '<div class="greeting">' +
+        '<h1>Good ' + greetingTime() + ', <em>' + esc(data.mentor.name.split(' ')[0]) + '</em></h1>' +
+        '<p>' + new Date().toLocaleDateString('en-US',{weekday:'long', month:'long', day:'numeric', year:'numeric'}) + ' · ' + totalStudents + ' students under your mentorship</p>' +
+      '</div>' +
+      '<div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">' +
+        statCard('Total Students', totalStudents, '', 'up', I.students, 'accent') +
+        statCard('Active Students', activeStudents, '', 'up', I.user, 'sky') +
+        statCard('Tasks Pending', tasksPending, tasksOverdue + ' overdue', tasksOverdue > 0 ? 'down' : 'up', I.tasks, tasksOverdue > 0 ? 'rose' : 'amber') +
+      '</div>' +
+      '<div class="card" style="margin-top:20px"><div class="card-h"><div><div class="card-title">Student Rankings</div><div class="card-sub">Top performers · auto-updates based on overall score</div></div></div>' + rankingControls() + '<div class="ranking-list" id="ranking-list">' + renderRankingList() + '</div></div>' +
+    '</div>';
+}
+
+function statCard(label, value, trend, dir, icon, color) {
+  const trendIcon = dir === 'up' ? I.trending : I.trendingDown;
+  return '' +
+    '<div class="stat-card">' +
+      '<div class="stat-icon" style="background:var(--' + color + '-soft);color:var(--' + color + ')">' + icon + '</div>' +
+      '<div class="stat-val">' + value + '</div>' +
+      '<div class="stat-lbl">' + label + '</div>' +
+      '<div class="stat-trend ' + dir + '">' + trendIcon + trend + '</div>' +
+    '</div>';
+}
+
+function rankingControls() {
+  return '' +
+    '<div class="ranking-controls">' +
+      '<div class="search-box">' + I.search + '<input id="rank-search" placeholder="Search by name, admission no, or batch..." value="' + esc(state.search) + '" /></div>' +
+      '<select class="select" id="filter-batch"><option value="all" ' + (state.filterBatch==='all'?'selected':'') + '>All Batches</option>' + data.batches.map(b => '<option value="' + b.name + '" ' + (state.filterBatch===b.name?'selected':'') + '>' + b.name + '</option>').join('') + '</select>' +
+      '<select class="select" id="sort-by">' +
+        '<option value="performance" ' + (state.sortBy==='performance'?'selected':'') + '>Performance</option>' +
+        '<option value="attendance" ' + (state.sortBy==='attendance'?'selected':'') + '>Attendance</option>' +
+        '<option value="academic" ' + (state.sortBy==='academic'?'selected':'') + '>Academic Score</option>' +
+        '<option value="goals" ' + (state.sortBy==='goals'?'selected':'') + '>Goal Achievement</option>' +
+        '<option value="tasks" ' + (state.sortBy==='tasks'?'selected':'') + '>Task Completion</option>' +
+        '<option value="batch" ' + (state.sortBy==='batch'?'selected':'') + '>Batch</option>' +
+      '</select>' +
+    '</div>';
+}
+
+function getSortedStudents() {
+  let list = [...data.students];
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    list = list.filter(s => 
+      s.name.toLowerCase().includes(q) || 
+      s.admissionNo.toLowerCase().includes(q) || 
+      s.batch.toLowerCase().includes(q) ||
+      (s.phone||'').includes(q)
+    );
+  }
+  if (state.filterBatch !== 'all') list = list.filter(s => s.batch === state.filterBatch);
+  
+  const sorters = {
+    performance: (a,b) => computePerformance(b) - computePerformance(a),
+    attendance: (a,b) => b.academics.attendance - a.academics.attendance,
+    academic: (a,b) => b.academics.performance - a.academics.performance,
+    goals: (a,b) => avg(b.goals.map(g=>g.progress)) - avg(a.goals.map(g=>g.progress)),
+    tasks: (a,b) => {
+      const ra = a.tasks.length ? a.tasks.filter(t=>t.status==='Completed').length/a.tasks.length : 0;
+      const rb = b.tasks.length ? b.tasks.filter(t=>t.status==='Completed').length/b.tasks.length : 0;
+      return rb - ra;
+    },
+    batch: (a,b) => a.batch.localeCompare(b.batch)
+  };
+  list.sort(sorters[state.sortBy] || sorters.performance);
+  return list;
+}
+
+function renderRankingList() {
+  const list = getSortedStudents();
+  if (!list.length) return '<div class="empty">' + I.search + '<div>No students found</div></div>';
+  return list.map((s, i) => {
+    const score = computePerformance(s);
+    return '' +
+      '<div class="rank-row" data-student="' + s.id + '">' +
+        '<div class="rank-pos">' + (i+1) + '</div>' +
+        '<div class="avatar" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
+        '<div class="rank-info">' +
+          '<div class="rank-name">' + esc(s.name) + (i===0?' <span class="badge badge-amber"><span class="badge-dot"></span>Top</span>':'') + '</div>' +
+          '<div class="rank-meta"><span>' + esc(s.admissionNo) + '</span><span>·</span><span>' + esc(s.batch) + '</span><span>·</span><span>' + s.academics.attendance + '% attendance</span></div>' +
+        '</div>' +
+        '<div class="rank-score"><div class="pct">' + score + '%</div><div class="lbl">Score</div><div class="mini-bar"><div class="mini-bar-fill" style="width:' + score + '%"></div></div></div>' +
+      '</div>';
+  }).join('');
+}
+
+function studentsView() {
+  return '' +
+    '<div class="fade-in">' +
+      '<div class="greeting"><h1>All <em>Students</em></h1><p>Manage and monitor all students under your mentorship</p></div>' +
+      '<div class="card">' + rankingControls() + '<div class="ranking-list" id="ranking-list">' + renderRankingList() + '</div></div>' +
+    '</div>';
+}
+
+/* ============================================================
+   STUDENT PROFILE (Mentor View)
+============================================================ */
+function profileView() {
+  const s = data.students.find(x => x.id === state.studentId);
+  if (!s) return '<div class="empty">Student not found. <button class="btn btn-primary" data-nav="dashboard">Back to Dashboard</button></div>';
+  const score = computePerformance(s);
+  const scores = computeScores(s);
+  
+  const tabs = [
+    {id:'overview', label:'Overview'},
+    {id:'personal', label:'Personal'},
+    {id:'family', label:'Family'},
+    {id:'development', label:'Development'},
+    {id:'achievements', label:'Achievements'},
+    {id:'goals', label:'Goals'},
+    {id:'tasks', label:'Tasks'}
+  ];
+  
+  return '' +
+    '<div class="fade-in">' +
+      '<button class="btn btn-ghost" data-nav="dashboard" style="margin-bottom:16px">' + I.arrowLeft + ' Back to Dashboard</button>' +
+      '<div class="profile-hero"><div class="profile-hero-content">' +
+        '<div class="avatar xl" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
+        '<div class="profile-hero-info">' +
+          '<h2>' + esc(s.name) + '</h2>' +
+          '<div class="profile-hero-meta">' +
+            '<span>' + I.user + esc(s.admissionNo) + '</span>' +
+            '<span>' + I.batch + esc(s.batch) + '</span>' +
+          '</div>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px">' +
+            '<span class="badge badge-accent" style="font-size:13px;padding:5px 12px"><strong>Overall: ' + score + '%</strong></span>' +
+            '<span class="badge badge-sky">GPA ' + s.academics.gpa.toFixed(2) + '</span>' +
+            '<span class="badge badge-amber">Attendance ' + s.academics.attendance + '%</span>' +
+            '<span class="badge badge-muted">' + esc(s.academics.class) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="profile-actions">' +
+          '<button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button>' +
+          '<button class="btn btn-primary" data-nav="reports">' + I.reports + ' Report</button>' +
+        '</div>' +
+      '</div></div>' +
+      '<div class="tabs">' + tabs.map(t => '<div class="tab ' + (state.tab === t.id ? 'active':'') + '" data-tab="' + t.id + '">' + t.label + '</div>').join('') + '</div>' +
+      '<div id="tab-content">' + profileTab(s, scores) + '</div>' +
+    '</div>';
+}
+
+function profileTab(s, scores) {
+  switch(state.tab) {
+    case 'overview': return overviewTab(s, scores);
+    case 'personal': return personalTab(s);
+    case 'family': return familyTab(s);
+    case 'development': return developmentTab(s);
+    case 'achievements': return achievementsTab(s);
+    case 'goals': return goalsTab(s);
+    case 'tasks': return tasksTab(s);
+    default: return overviewTab(s, scores);
+  }
+}
+
+function overviewTab(s, scores) {
+  const score = computePerformance(s);
+  return '' +
+    '<div class="grid-2-1">' +
+      '<div>' +
+        '<div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">' +
+          miniStat('Overall Score', score+'%', 'accent') +
+          miniStat('Academic', scores.academic+'%', 'sky') +
+          miniStat('Leadership', scores.leadership+'/100', 'amber') +
+          miniStat('Discipline', scores.discipline+'/100', 'accent') +
+          miniStat('Consistency', scores.consistency+'%', 'sky') +
+          miniStat('Growth', scores.growth+'%', 'amber') +
+        '</div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">Performance Radar</div></div><div class="chart-wrap tall"><canvas id="radar-chart"></canvas></div></div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Quick Stats</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
+          progressRow('Attendance', s.academics.attendance, '%') +
+          progressRow('Academic Performance', s.academics.performance, '%') +
+          progressRow('Goal Achievement', scores.goalAch, '%', 'amber') +
+          progressRow('Task Completion', s.tasks.length ? Math.round(s.tasks.filter(t=>t.status==='Completed').length/s.tasks.length*100) : 0, '%', 'green') +
+        '</div></div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">Mentor Notes</div></div><p style="font-size:13px;line-height:1.6;color:var(--text-2)">' + esc(s.mentorNotes || 'No notes yet.') + '</p></div>' +
+      '</div>' +
+    '</div>';
+}
+
+function miniStat(label, value, color) {
+  return '<div class="card" style="padding:16px;text-align:center"><div style="font-family:var(--fd);font-size:28px;font-weight:600;color:var(--' + color + ')">' + value + '</div><div style="font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.06em">' + label + '</div></div>';
+}
+
+function progressRow(label, value, suffix, color) {
+  const fillClass = color === 'amber' ? 'amber' : color === 'rose' ? 'rose' : color === 'green' ? 'green' : '';
+  return '' +
+    '<div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:500">' + label + '</span><span style="font-size:13px;font-weight:600;font-family:var(--fm)">' + value + suffix + '</span></div><div class="progress"><div class="progress-fill ' + fillClass + '" style="width:' + value + '%"></div></div></div>';
+}
+
+function personalTab(s) {
+  return '' +
+    '<div class="card"><div class="card-h"><div class="card-title">Personal Details</div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button></div>' +
+      '<div class="info-grid">' +
+        infoItem('Full Name', s.name) +
+        infoItem('Admission Number', s.admissionNo) +
+        infoItem('Date of Birth', fmtDate(s.dob)) +
+        infoItem('Age', age(s.dob)) +
+        infoItem('Gender', s.gender) +
+        infoItem('Class', s.academics.class) +
+        infoItem('Batch', s.batch) +
+        infoItem('Student Contact', s.phone) +
+        infoItem('Student Email', s.email) +
+        infoItem('Parent Contact', [s.father?.name, s.mother?.name].filter(Boolean).join(', ') || '—') +
+        infoItem('Emergency Contact', s.phone) +
+        infoItem('Exam Status', examStatus(s)) +
+        infoItem('Exam Note', s.academics.examNote || 'No note') +
+      '</div>' +
+      '<div class="info-item" style="margin-top:14px"><div class="lbl">Address</div><div class="val">' + esc(s.address || '—') + '</div></div>' +
+    '</div>';
+}
+
+function infoItem(label, value) {
+  return '<div class="info-item"><div class="lbl">' + label + '</div><div class="val">' + esc(value) + '</div></div>';
+}
+
+function familyTab(s) {
+  const members = getFamilyMembers(s);
+  return '' +
+    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Family Background</div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button></div><div class="info-grid">' + infoItem('Family Status', s.familyStatus || '—') + '</div></div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Family & Support</div></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Name</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Job</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Relationship</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Note</th></tr></thead><tbody>' +
+        members.map(m => '<tr style="border-top:1px solid var(--border)"><td style="padding:12px 10px">' + esc(m.name) + '</td><td style="padding:12px 10px">' + esc(m.job || '—') + '</td><td style="padding:12px 10px">' + esc(m.relationship || '—') + '</td><td style="padding:12px 10px">' + esc(m.note || '—') + '</td></tr>').join('') +
+      '</tbody></table></div></div>' +
+    '<div class="card" style="margin-top:20px;border-color:var(--accent);background:var(--accent-soft)"><div class="card-h"><div class="card-title" style="color:var(--accent)">' + I.lock + ' Private Mentor Notes</div></div><p style="font-size:13px;line-height:1.6">' + esc(s.mentorNotes || 'No private notes.') + '</p></div>';
+}
+
+function academicTab(s) {
+  return '' +
+    '<div class="grid-2" style="margin-bottom:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Academic Information</div></div><div class="info-grid">' + infoItem('Current Class', s.academics.class) + infoItem('Batch', s.batch) + infoItem('GPA', s.academics.gpa.toFixed(2)) + infoItem('Attendance', s.academics.attendance + '%') + infoItem('Performance', s.academics.performance + '%') + infoItem('Learning Progress', s.academics.learningProgress) + '</div><div class="info-item" style="margin-top:14px"><div class="lbl">Reading Habits</div><div class="val">' + esc(s.academics.readingHabits) + '</div></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Subjects</div></div><div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">Strong Subjects</div><div>' + s.academics.strongSubjects.map(sub => '<span class="tag tag-accent">' + esc(sub) + '</span>').join('') + '</div></div><div><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--rose);margin-bottom:8px">Weak Subjects</div><div>' + s.academics.weakSubjects.map(sub => '<span class="tag tag-rose">' + esc(sub) + '</span>').join('') + '</div></div></div>' +
+    '</div>' +
+    '<div class="grid-2">' +
+      '<div class="card"><div class="card-h"><div class="card-title">GPA Trend</div></div><div class="chart-wrap"><canvas id="gpa-chart"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Attendance Trend</div></div><div class="chart-wrap"><canvas id="att-chart"></canvas></div></div>' +
+    '</div>' +
+    '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Examination Results</div></div><div class="chart-wrap"><canvas id="exam-chart"></canvas></div></div>';
+}
+
+function developmentTab(s) {
+  const d = s.development;
+  return '' +
+    '<div class="grid-2" style="margin-bottom:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Strengths & Weaknesses</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">Strengths</div><div>' + d.strengths.map(x => '<span class="tag tag-accent">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--rose);margin-bottom:8px">Weaknesses</div><div>' + d.weaknesses.map(x => '<span class="tag tag-rose">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Areas for Improvement</div><div>' + d.improvements.map(x => '<span class="tag tag-amber">' + esc(x) + '</span>').join('') + '</div></div>' +
+      '</div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Skills & Talents</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sky);margin-bottom:8px">Skills</div><div>' + d.skills.map(x => '<span class="tag tag-sky">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Talents</div><div>' + d.talents.map(x => '<span class="tag tag-amber">' + esc(x) + '</span>').join('') + '</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Behaviour Assessment</div></div><div class="info-item"><div class="lbl">Behaviour</div><div class="val">' + esc(d.behaviour) + '</div></div></div>';
+}
+
+function ratingBar(label, value) {
+  const pct = (value/10)*100;
+  const color = value >= 8 ? 'green' : value >= 6 ? 'amber' : 'rose';
+  return '<div class="info-item"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:600">' + label + '</span><span class="rating-pill">' + I.star + value + '/10</span></div><div class="progress"><div class="progress-fill ' + (color==='amber'?'amber':color==='rose'?'rose':'') + '" style="width:' + pct + '%"></div></div></div>';
+}
+
+function achievementsTab(s) {
+  return '' +
+    '<div class="card"><div class="card-h"><div class="card-title">Achievements & Certifications</div><button class="btn btn-primary" data-action="add-achievement" data-student="' + s.id + '">' + I.plus + ' Add Achievement</button></div>' +
+      (s.achievements.length ? '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">' + s.achievements.map(a => '<div class="card" style="padding:18px;background:var(--surface-2)"><div style="display:flex;gap:12px;align-items:flex-start"><div style="width:42px;height:42px;border-radius:12px;background:var(--amber-soft);color:var(--amber);display:grid;place-items:center;flex-shrink:0">' + I.award + '</div><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;line-height:1.3">' + esc(a.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + fmtDate(a.date) + '</div><span class="badge badge-amber" style="margin-top:8px">' + esc(a.type) + '</span></div></div></div>').join('') + '</div>' : '<div class="empty">' + I.award + '<div>No achievements yet</div></div>') +
+    '</div>';
+}
+
+function goalsTab(s) {
+  return '' +
+    '<div class="card"><div class="card-h"><div class="card-title">Goal Tracking</div><button class="btn btn-primary" data-action="add-goal" data-student="' + s.id + '">' + I.plus + ' Create Goal</button></div>' +
+      (s.goals.length ? '<div class="goal-list">' + s.goals.map(g => goalCard(g, s.id)).join('') + '</div>' : '<div class="empty">' + I.flag + '<div>No goals yet</div></div>') +
+    '</div>';
+}
+
+function goalCard(g, sid) {
+  const statusColor = g.status === 'Completed' ? 'green' : g.status === 'Delayed' ? 'rose' : g.status === 'In Progress' ? 'amber' : 'muted';
+  const priorityColor = g.priority === 'High' ? 'rose' : g.priority === 'Medium' ? 'amber' : 'sky';
+  return '' +
+    '<div class="goal-row"><div class="task-row-head"><div><div class="task-title">' + esc(g.title) + '</div><div class="task-meta"><span>' + I.flag + '<span class="badge badge-' + statusColor + '">' + g.status + '</span></span><span>' + I.calendar + fmtDate(g.targetDate) + '</span><span><span class="badge badge-' + priorityColor + '">' + g.priority + '</span></span><span>' + I.target + esc(g.category) + '</span></div></div><div style="display:flex;gap:6px"><button class="btn btn-ghost" data-edit-goal="' + sid + '" data-goal="' + g.id + '" style="padding:6px 12px;font-size:12px">' + I.edit + '</button><button class="btn btn-ghost" data-delete-goal="' + sid + '" data-goal="' + g.id + '" style="padding:6px 12px;font-size:12px;color:var(--rose)">' + I.trash + '</button></div></div>' +
+    '<p style="font-size:13px;color:var(--text-2);margin:8px 0;line-height:1.5">' + esc(g.desc) + '</p>' +
+    '<div style="display:flex;justify-content:space-between;font-size:12px;margin-top:10px;margin-bottom:4px"><span style="color:var(--muted)">Progress</span><span style="font-family:var(--fm);font-weight:600">' + g.progress + '%</span></div>' +
+    '<div class="progress"><div class="progress-fill ' + (g.progress < 30 ? 'rose' : g.progress < 70 ? 'amber' : '') + '" style="width:' + g.progress + '%"></div></div>' +
+    (g.feedback ? '<div style="margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:8px;font-size:12px"><strong style="color:var(--accent)">Mentor:</strong> ' + esc(g.feedback) + '</div>' : '') +
+    (g.reflection ? '<div style="margin-top:6px;padding:10px 12px;background:var(--surface-3);border-radius:8px;font-size:12px"><strong>Student:</strong> ' + esc(g.reflection) + '</div>' : '') +
+    '</div>';
+}
+
+function tasksTab(s) {
+  return '' +
+    '<div class="card"><div class="card-h"><div class="card-title">Task Dashboard</div><button class="btn btn-primary" data-action="add-task" data-student="' + s.id + '">' + I.plus + ' Assign Task</button></div>' +
+      (s.tasks.length ? '<div class="task-list">' + s.tasks.map(t => taskCard(t, s.id)).join('') + '</div>' : '<div class="empty">' + I.tasks + '<div>No tasks assigned</div></div>') +
+    '</div>';
+}
+
+function taskCard(t, sid) {
+  const statusColor = t.status === 'Completed' ? 'green' : t.status === 'Overdue' ? 'rose' : t.status === 'In Progress' ? 'sky' : 'amber';
+  const priorityColor = t.priority === 'High' ? 'rose' : t.priority === 'Medium' ? 'amber' : 'sky';
+  const ratingLabel = t.rating ? t.rating + '/10' : (t.status === 'Completed' ? 'Pending rating' : 'Based on completion');
+  return '' +
+    '<div class="task-row"><div class="task-row-head"><div style="flex:1;min-width:0"><div class="task-title">' + esc(t.title) + '</div><div class="task-meta"><span>' + I.flag + '<span class="badge badge-' + statusColor + '">' + t.status + '</span></span><span>' + I.calendar + 'Assigned ' + fmtDate(t.assignedDate) + '</span><span>' + I.clock + 'Due ' + fmtDate(t.deadline) + '</span><span><span class="badge badge-' + priorityColor + '">' + t.priority + '</span></span><span>' + I.target + esc(t.category) + '</span></div></div><div style="display:flex;gap:6px">' + (t.status !== 'Completed' ? '<button class="btn btn-ghost" data-rate-task="' + sid + '" data-task="' + t.id + '" style="padding:6px 12px;font-size:12px">' + I.star + ' Rate</button>' : '') + '<button class="btn btn-ghost" data-edit-task="' + sid + '" data-task="' + t.id + '" style="padding:6px 12px;font-size:12px">' + I.edit + '</button><button class="btn btn-ghost" data-delete-task="' + sid + '" data-task="' + t.id + '" style="padding:6px 12px;font-size:12px;color:var(--rose)">' + I.trash + '</button></div></div>' +
+    '<p style="font-size:13px;color:var(--text-2);margin:6px 0;line-height:1.5">' + esc(t.desc) + '</p>' +
+    '<div style="display:flex;gap:14px;align-items:center;margin-top:10px;padding:10px 14px;background:var(--accent-soft);border-radius:8px"><span class="rating-pill">' + I.star + ratingLabel + '</span>' +
+      (t.note ? '<span style="font-size:13px;color:var(--text-2)">' + esc(t.note) + '</span>' : '<span style="font-size:13px;color:var(--muted)">No task note</span>') +
+    '</div>' +
+    (t.submission ? '<div style="margin-top:8px;padding:10px 14px;background:var(--surface-3);border-radius:8px;font-size:13px"><strong style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Submission:</strong> ' + esc(t.submission) + '</div>' : '') +
+    '</div>';
+}
+
+function performanceTab(s, scores) {
+  return '' +
+    '<div class="grid-2" style="margin-bottom:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Performance Radar</div></div><div class="chart-wrap tall"><canvas id="perf-radar"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Score Breakdown</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
+        progressRow('Academic Score', scores.academic, '%') +
+        progressRow('Leadership Score', scores.leadership, '/100', 'amber') +
+        progressRow('Discipline Score', scores.discipline, '/100', 'green') +
+        progressRow('Consistency Score', scores.consistency, '%', 'amber') +
+        progressRow('Goal Achievement', scores.goalAch, '%') +
+        progressRow('Growth Score', scores.growth, '/100', 'amber') +
+      '</div></div>' +
+    '</div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Performance Trend</div></div><div class="chart-wrap tall"><canvas id="trend-chart"></canvas></div></div>';
+}
+
+function communicationTab(s) {
+  return '' +
+    '<div class="card"><div class="card-h"><div class="card-title">Communication</div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Update Contacts</button></div>' +
+      '<div class="info-grid" style="margin-bottom:20px">' + infoItem('Student Contact', s.phone) + infoItem('Student Email', s.email) + infoItem('Parent Contact', s.father.name ? s.phone : s.phone) + infoItem('Emergency Contact', s.mother.name ? s.phone : s.phone) + '</div>' +
+      '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+        '<a href="tel:' + esc(s.phone) + '" class="btn btn-primary">' + I.phone + ' Call Student</a>' +
+        '<a href="https://wa.me/' + esc(s.phone.replace(/\D/g,'')) + '" target="_blank" class="btn btn-ghost" style="color:#25D366;border-color:#25D366">' + I.whatsapp + ' WhatsApp</a>' +
+        '<a href="mailto:' + esc(s.email) + '" class="btn btn-ghost">' + I.mail + ' Email</a>' +
+        '<button class="btn btn-ghost" data-individual-notif="' + s.id + '">' + I.bell + ' Send Notification</button>' +
+      '</div>' +
+    '</div>';
+}
+
+/* ============================================================
+   STUDENT VIEWS
+============================================================ */
+function studentDashView() {
+  const s = state.user;
+  if (!s) return '';
+  const score = computePerformance(s);
+  const scores = computeScores(s);
+  const myTasks = s.tasks;
+  const myGoals = s.goals;
+  
+  return '' +
+    '<div class="fade-in">' +
+      '<div class="profile-hero"><div class="profile-hero-content">' +
+        '<div class="avatar xl" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
+        '<div style="flex:1;min-width:240px;position:relative">' +
+          '<h1 style="font-size:32px;font-weight:600;margin-bottom:4px">Welcome, <em style="font-style:normal;color:var(--accent)">' + esc(s.name.split(' ')[0]) + '</em></h1>' +
+          '<p style="color:var(--muted);margin-bottom:12px">' + esc(s.admissionNo) + ' · ' + esc(s.batch) + ' · ' + esc(s.academics.class) + '</p>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap"><span class="badge badge-accent" style="font-size:13px;padding:5px 12px">Overall: ' + score + '%</span><span class="badge badge-sky">GPA ' + s.academics.gpa.toFixed(2) + '</span><span class="badge badge-amber">Attendance ' + s.academics.attendance + '%</span></div>' +
+        '</div>' +
+        '<div style="position:relative"><div style="font-family:var(--fd);font-size:48px;font-weight:600;color:var(--accent);line-height:1">' + score + '</div><div style="font-size:12px;color:var(--muted);text-align:right">Overall Score</div></div>' +
+      '</div></div>' +
+      '<div class="stats-grid">' +
+        statCard('My Tasks', myTasks.length, myTasks.filter(t=>t.status==='Completed').length + ' completed', 'up', I.tasks, 'accent') +
+        statCard('Pending', myTasks.filter(t=>t.status!=='Completed').length, 'Tasks in progress', 'up', I.clock, 'amber') +
+        statCard('My Goals', myGoals.length, Math.round(avg(myGoals.map(g=>g.progress))) + '% avg progress', 'up', I.flag, 'sky') +
+        statCard('Achievements', s.achievements.length, 'Awards earned', 'up', I.award, 'amber') +
+      '</div>' +
+      '<div class="grid-2">' +
+        '<div class="card"><div class="card-h"><div class="card-title">My Tasks</div><button class="btn btn-ghost" data-nav="student-tasks">View all</button></div>' +
+          myTasks.slice(0,3).map(t => {
+            const statusColor = t.status === 'Completed' ? 'green' : t.status === 'Overdue' ? 'rose' : 'amber';
+            return '<div class="task-row" style="margin-bottom:8px"><div class="task-row-head"><div class="task-title">' + esc(t.title) + '</div><span class="badge badge-' + statusColor + '">' + t.status + '</span></div><div class="task-meta"><span>' + I.clock + 'Due ' + fmtDate(t.deadline) + '</span></div>' + (t.rating ? '<div style="margin-top:8px"><span class="rating-pill">' + I.star + t.rating + '/10</span></div>' : '') + '</div>';
+          }).join('') +
+        '</div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">My Goals</div><button class="btn btn-ghost" data-nav="student-goals">View all</button></div>' +
+          myGoals.slice(0,3).map(g => '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:600">' + esc(g.title) + '</span><span style="font-size:12px;font-family:var(--fm);color:var(--accent)">' + g.progress + '%</span></div><div class="progress"><div class="progress-fill ' + (g.progress<30?'rose':g.progress<70?'amber':'') + '" style="width:' + g.progress + '%"></div></div></div>').join('') +
+        '</div>' +
+      '</div>' +
+      '<div class="grid-2" style="margin-top:20px">' +
+        '<div class="card"><div class="card-h"><div class="card-title">Performance Trend</div></div><div class="chart-wrap"><canvas id="sd-trend"></canvas></div></div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">My Development</div></div><div class="chart-wrap"><canvas id="sd-radar"></canvas></div></div>' +
+      '</div>' +
+      '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Recent Feedback</div></div>' +
+        (s.tasks.filter(t => t.feedback).slice(0,3).map(t => '<div class="activity-item"><div class="activity-icon" style="background:var(--accent-soft);color:var(--accent)">' + I.message + '</div><div class="activity-content"><div class="activity-text"><strong>' + esc(t.title) + '</strong> — ' + esc(t.feedback) + '</div><div class="activity-time">Rating: ' + t.rating + '/10</div></div></div>').join('') || '<div class="empty">No feedback yet</div>') +
+      '</div>' +
+    '</div>';
+}
+
+function studentTasksView() {
+  const s = state.user;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Tasks</em></h1><p>View and submit your assigned tasks</p></div>' +
+    '<div class="card"><div class="task-list">' +
+      s.tasks.map(t => {
+        const statusColor = t.status === 'Completed' ? 'green' : t.status === 'Overdue' ? 'rose' : 'amber';
+        return '<div class="task-row"><div class="task-row-head"><div style="flex:1"><div class="task-title">' + esc(t.title) + '</div><div class="task-meta"><span><span class="badge badge-' + statusColor + '">' + t.status + '</span></span><span>' + I.clock + 'Due ' + fmtDate(t.deadline) + '</span><span>' + I.flag + esc(t.priority) + ' priority</span></div></div>' + (t.status !== 'Completed' ? '<button class="btn btn-primary" data-submit-task="' + t.id + '" style="padding:8px 14px;font-size:12px">' + I.upload + ' Submit</button>' : '') + '</div><p style="font-size:13px;color:var(--text-2);margin:6px 0">' + esc(t.desc) + '</p>' + (t.rating ? '<div style="margin-top:10px;padding:10px 14px;background:var(--accent-soft);border-radius:8px"><span class="rating-pill">' + I.star + t.rating + '/10</span> <span style="font-size:13px;margin-left:8px">' + esc(t.feedback) + '</span></div>' : '') + '</div>';
+      }).join('') +
+    '</div></div></div>';
+}
+
+function studentGoalsView() {
+  const s = state.user;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Goals</em></h1><p>Track your progress and update reflections</p></div>' +
+    '<div class="card"><div class="goal-list">' +
+      s.goals.map(g => '<div class="goal-row"><div class="task-row-head"><div><div class="task-title">' + esc(g.title) + '</div><div class="task-meta"><span><span class="badge badge-' + (g.status==='Completed'?'green':g.status==='Delayed'?'rose':'amber') + '">' + g.status + '</span></span><span>' + I.calendar + fmtDate(g.targetDate) + '</span><span>' + I.target + esc(g.category) + '</span></div></div><button class="btn btn-primary" data-update-goal="' + g.id + '" style="padding:8px 14px;font-size:12px">' + I.edit + ' Update Progress</button></div><p style="font-size:13px;color:var(--text-2);margin:8px 0">' + esc(g.desc) + '</p><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">Progress</span><span style="font-family:var(--fm);font-weight:600">' + g.progress + '%</span></div><div class="progress"><div class="progress-fill ' + (g.progress<30?'rose':g.progress<70?'amber':'') + '" style="width:' + g.progress + '%"></div></div>' + (g.feedback ? '<div style="margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:8px;font-size:12px"><strong style="color:var(--accent)">Mentor Feedback:</strong> ' + esc(g.feedback) + '</div>' : '') + '</div>').join('') +
+    '</div></div></div>';
+}
+
+function studentAchievementsView() {
+  const s = state.user;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Achievements</em></h1><p>Awards, certificates, and recognitions you have earned</p></div>' +
+    '<div class="card">' +
+      (s.achievements.length ? '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">' + s.achievements.map(a => '<div class="card" style="padding:18px;background:var(--surface-2)"><div style="display:flex;gap:12px;align-items:flex-start"><div style="width:42px;height:42px;border-radius:12px;background:var(--amber-soft);color:var(--amber);display:grid;place-items:center;flex-shrink:0">' + I.award + '</div><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;line-height:1.3">' + esc(a.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + fmtDate(a.date) + '</div><span class="badge badge-amber" style="margin-top:8px">' + esc(a.type) + '</span></div></div></div>').join('') + '</div>' : '<div class="empty">' + I.award + '<div>No achievements yet</div></div>') +
+    '</div></div>';
+}
+
+function studentDevelopmentView() {
+  const s = state.user;
+  const d = s.development;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Development</em></h1><p>Track your personal and soft skills growth</p></div>' +
+    '<div class="grid-2" style="margin-bottom:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Strengths & Weaknesses</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">Strengths</div><div>' + d.strengths.map(x => '<span class="tag tag-accent">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--rose);margin-bottom:8px">Weaknesses</div><div>' + d.weaknesses.map(x => '<span class="tag tag-rose">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Areas for Improvement</div><div>' + d.improvements.map(x => '<span class="tag tag-amber">' + esc(x) + '</span>').join('') + '</div></div>' +
+      '</div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Skills & Talents</div></div>' +
+        '<div style="margin-bottom:14px"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sky);margin-bottom:8px">Skills</div><div>' + d.skills.map(x => '<span class="tag tag-sky">' + esc(x) + '</span>').join('') + '</div></div>' +
+        '<div><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Talents</div><div>' + d.talents.map(x => '<span class="tag tag-amber">' + esc(x) + '</span>').join('') + '</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Development Ratings</div></div><div class="info-grid">' +
+      ratingBar('Leadership', d.leadership) + ratingBar('Communication', d.communication) + ratingBar('Teamwork', d.teamwork) + ratingBar('Creativity', d.creativity) + ratingBar('Discipline', d.discipline) +
+    '</div><div class="info-item" style="margin-top:14px"><div class="lbl">Behaviour Assessment</div><div class="val">' + esc(d.behaviour) + '</div></div></div>' +
+    '</div>';
+}
+
+function studentPerformanceView() {
+  const s = state.user;
+  const scores = computeScores(s);
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Performance</em></h1><p>Insights into your academic and personal growth</p></div>' +
+    '<div class="stats-grid">' +
+      statCard('Overall', computePerformance(s)+'%', 'Performance score', 'up', I.trending, 'accent') +
+      statCard('Academic', scores.academic+'%', 'Subject performance', 'up', I.book, 'sky') +
+      statCard('Consistency', scores.consistency+'%', 'Task & attendance', 'up', I.activity, 'amber') +
+      statCard('Growth', scores.growth+'%', 'Composite growth', 'up', I.zap, 'accent') +
+    '</div>' +
+    '<div class="grid-2">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Development Radar</div></div><div class="chart-wrap tall"><canvas id="sa-radar"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">GPA & Attendance Trend</div></div><div class="chart-wrap tall"><canvas id="sa-trend"></canvas></div></div>' +
+    '</div>' +
+    '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Score Breakdown</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
+      progressRow('Academic Score', scores.academic, '%') +
+      progressRow('Leadership Score', scores.leadership, '/100', 'amber') +
+      progressRow('Discipline Score', scores.discipline, '/100', 'green') +
+      progressRow('Consistency Score', scores.consistency, '%', 'amber') +
+      progressRow('Goal Achievement', scores.goalAch, '%') +
+    '</div></div></div>';
+}
+
+function studentNotificationsView() {
+  const s = state.user;
+  const notifs = data.notifications.filter(n => n.target === 'all' || n.target === s.id);
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Notifications</em></h1><p>Stay updated with your latest tasks, goals, and alerts</p></div>' +
+    '<div class="card">' +
+      (notifs.length ? notifs.map(n => '<div class="notif-item ' + (n.unread ? 'unread':'') + '" style="border-bottom:1px solid var(--border);border-radius:0"><div class="notif-item-icon" style="background:var(--' + n.color + '-soft);color:var(--' + n.color + ')">' + (I[n.icon] || I.bell) + '</div><div class="notif-item-content"><div class="notif-item-title">' + esc(n.title) + '</div><div class="notif-item-text">' + esc(n.text) + '</div><div class="notif-item-time">' + esc(n.time) + '</div></div></div>').join('') : '<div class="empty">' + I.bell + '<div>No notifications yet</div></div>') +
+    '</div></div>';
+}
+
+function studentProfileView() {
+  const s = state.user;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>My <em>Profile</em></h1><p>View your personal and academic details</p></div>' +
+    '<div class="profile-hero"><div class="profile-hero-content">' +
+      '<div class="avatar xl" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
+      '<div class="profile-hero-info"><h2>' + esc(s.name) + '</h2><div class="profile-hero-meta"><span>' + I.user + esc(s.admissionNo) + '</span><span>' + I.batch + esc(s.batch) + '</span><span>' + I.phone + esc(s.phone) + '</span><span>' + I.mail + esc(s.email) + '</span></div></div>' +
+    '</div></div>' +
+    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Personal Details</div></div><div class="info-grid">' + infoItem('Full Name', s.name) + infoItem('Admission Number', s.admissionNo) + infoItem('Date of Birth', fmtDate(s.dob)) + infoItem('Age', age(s.dob)) + infoItem('Gender', s.gender) + infoItem('Class', s.academics.class) + infoItem('Batch', s.batch) + infoItem('Contact', s.phone) + '</div></div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Academic Details</div></div><div class="info-grid">' + infoItem('GPA', s.academics.gpa.toFixed(2)) + infoItem('Attendance', s.academics.attendance+'%') + infoItem('Performance', s.academics.performance+'%') + infoItem('Learning Progress', s.academics.learningProgress) + '</div></div>' +
+    '</div>';
+}
+
+/* ============================================================
+   BATCHES VIEW
+============================================================ */
+function batchesView() {
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>Batch <em>Management</em></h1><p>Manage student batches and transfers</p></div>' +
+    '<div class="grid-3">' +
+      data.batches.map(b => {
+        const students = data.students.filter(s => s.batch === b.name);
+        const avgPerf = students.length ? Math.round(avg(students.map(s => computePerformance(s)))) : 0;
+        const avgAtt = students.length ? Math.round(avg(students.map(s => s.academics.attendance))) : 0;
+        return '<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><div><div style="font-family:var(--fd);font-size:24px;font-weight:600">' + esc(b.name) + '</div><div style="font-size:12px;color:var(--muted);margin-top:2px">' + esc(b.year) + '</div></div><div style="width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center">' + I.batch + '</div></div><div style="display:flex;justify-content:space-between;margin:14px 0;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)"><div style="text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600">' + students.length + '</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Students</div></div><div style="text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--accent)">' + avgPerf + '%</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Perf</div></div><div style="text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--sky)">' + avgAtt + '%</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Attend</div></div></div><div style="display:flex;gap:6px"><button class="btn btn-ghost" data-batch-students="' + b.name + '" style="flex:1;font-size:12px">View Students</button><button class="btn btn-ghost" data-edit-batch="' + b.id + '" style="font-size:12px;padding:6px 10px">' + I.edit + '</button></div></div>';
+      }).join('') +
+      '<div class="card" style="display:flex;align-items:center;justify-content:center;cursor:pointer;border-style:dashed" data-action="add-batch"><div style="text-align:center;color:var(--muted)"><div style="width:44px;height:44px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;margin:0 auto 10px">' + I.plus + '</div><div style="font-size:13px;font-weight:600">Create Batch</div></div></div>' +
+    '</div></div>';
+}
+
+/* ============================================================
+   ANALYTICS VIEW
+============================================================ */
+function analyticsView() {
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>Analytics <em>Dashboard</em></h1><p>Comprehensive insights across all students and batches</p></div>' +
+    '<div class="stats-grid">' +
+      statCard('Avg Performance', Math.round(avg(data.students.map(s=>computePerformance(s))))+'%', 'All students', 'up', I.trending, 'accent') +
+      statCard('Avg Attendance', Math.round(avg(data.students.map(s=>s.academics.attendance)))+'%', 'All students', 'up', I.calendar, 'sky') +
+      statCard('Avg GPA', avg(data.students.map(s=>s.academics.gpa)).toFixed(2), 'Out of 4.0', 'up', I.book, 'amber') +
+      statCard('Goal Success', Math.round(avg(data.students.flatMap(s=>s.goals).map(g=>g.progress)))+'%', 'Avg progress', 'up', I.target, 'accent') +
+    '</div>' +
+    '<div class="grid-2" style="margin-top:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Performance Distribution</div></div><div class="chart-wrap tall"><canvas id="an-dist"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Attendance vs Performance</div></div><div class="chart-wrap tall"><canvas id="an-scatter"></canvas></div></div>' +
+    '</div>' +
+    '<div class="grid-2" style="margin-top:20px">' +
+      '<div class="card"><div class="card-h"><div class="card-title">Batch Comparison</div></div><div class="chart-wrap tall"><canvas id="an-batch"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Subject Performance Heatmap</div></div><div style="margin-top:16px">' + renderHeatmap() + '</div></div>' +
+    '</div></div>';
+}
+
+function renderHeatmap() {
+  const subjects = ['Mathematics','Physics','Chemistry','Biology','English','Computer Science'];
+  const batches = data.batches.map(b => b.name);
+  let html = '<div style="display:grid;grid-template-columns:140px repeat(' + batches.length + ',1fr);gap:4px;font-size:11px">';
+  html += '<div></div>';
+  batches.forEach(b => html += '<div style="text-align:center;font-weight:600;color:var(--muted);padding:4px">' + b + '</div>');
+  subjects.forEach(sub => {
+    html += '<div style="padding:6px 8px;font-weight:600;color:var(--text-2)">' + sub + '</div>';
+    batches.forEach(b => {
+      const students = data.students.filter(s => s.batch === b);
+      const scores = students.map(s => {
+        const ex = s.academics.examResults.find(e => e.subject === sub);
+        return ex ? ex.score : null;
+      }).filter(x => x !== null);
+      const avgScore = scores.length ? Math.round(avg(scores)) : 0;
+      const intensity = avgScore / 100;
+      const bg = avgScore === 0 ? 'var(--surface-3)' : 'rgba(37,99,235,' + (0.15 + intensity * 0.6) + ')';
+      html += '<div style="background:' + bg + ';padding:8px;text-align:center;border-radius:6px;font-family:var(--fm);font-weight:600;color:' + (intensity > 0.5 ? '#fff' : 'var(--text)') + '">' + (avgScore || '—') + '</div>';
+    });
+  });
+  html += '</div>';
+  return html;
+}
+
+/* ============================================================
+   REPORTS VIEW
+============================================================ */
+function reportsView() {
+  const reports = [
+    {title:'Student Progress Report', desc:'Comprehensive overview of individual student progress across all dimensions', icon:I.trending, color:'accent'},
+    {title:'Academic Report', desc:'Detailed academic performance, GPA trends, attendance and exam results', icon:I.book, color:'sky'},
+    {title:'Task Report', desc:'Task completion rates, ratings, and submission history', icon:I.tasks, color:'amber'},
+    {title:'Goal Achievement Report', desc:'Goal progress, milestones reached, and category breakdown', icon:I.target, color:'accent'},
+    {title:'Semester Evaluation Report', desc:'End-of-semester comprehensive evaluation across all metrics', icon:I.reports, color:'sky'},
+    {title:'Annual Development Report', desc:'Year-long personal and academic development summary', icon:I.award, color:'amber'}
+  ];
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>Reports <em>& Downloads</em></h1><p>Generate and download comprehensive reports</p></div>' +
+    '<div class="grid-2">' +
+      reports.map((r,i) => '<div class="report-card" data-report="' + i + '"><div class="report-card-icon" style="background:var(--' + r.color + '-soft);color:var(--' + r.color + ')">' + r.icon + '</div><div><h4>' + r.title + '</h4><p>' + r.desc + '</p></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;border-top:1px solid var(--border)"><span style="font-size:12px;color:var(--muted)">PDF · Printable</span><span class="btn btn-ghost" style="padding:6px 12px;font-size:12px">' + I.download + ' Generate</span></div></div>').join('') +
+    '</div></div>';
+}
+
+/* ============================================================
+   SETTINGS VIEW
+============================================================ */
+function settingsView() {
+  const m = data.mentor;
+  return '' +
+    '<div class="fade-in"><div class="greeting"><h1>Mentor <em>Profile & Settings</em></h1><p>Manage your account, preferences, and system data</p></div>' +
+    '<div class="grid-2-1"><div>' +
+      '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Mentor Profile</div><button class="btn btn-ghost" data-edit-mentor>' + I.edit + ' Edit</button></div>' +
+        '<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div class="avatar lg" style="background-image:url(\'' + mentorAvatarUrl() + '\')"></div><div style="flex:1;min-width:200px"><div style="font-family:var(--fd);font-size:24px;font-weight:600">' + esc(m.name) + '</div><div style="color:var(--muted);font-size:13px;margin-top:2px">' + esc(m.designation) + '</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><span class="badge badge-accent">' + m.batches.length + ' Batches</span><span class="badge badge-sky">' + data.students.length + ' Students</span></div></div></div>' +
+        '<div class="divider"></div><div class="info-grid">' + infoItem('Email', m.email) + infoItem('Phone', m.phone) + infoItem('Designation', m.designation) + infoItem('Assigned Batches', m.batches.join(', ')) + '</div>' +
+      '</div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Account Settings</div></div><div style="display:flex;flex-direction:column;gap:10px">' +
+        '<button class="btn btn-ghost" data-edit-mentor style="justify-content:flex-start">' + I.edit + ' Edit Profile</button>' +
+        '<button class="btn btn-ghost" data-change-password style="justify-content:flex-start">' + I.lock + ' Change Password</button>' +
+        '<button class="btn btn-ghost" data-change-photo style="justify-content:flex-start">' + I.camera + ' Change Photo</button>' +
+        '<button class="btn btn-ghost" data-backup style="justify-content:flex-start">' + I.download + ' Backup Data</button>' +
+        '<button class="btn btn-ghost" data-reset style="justify-content:flex-start;color:var(--rose)">' + I.trash + ' Reset All Data</button>' +
+      '</div></div>' +
+    '</div><div>' +
+      '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">System Info</div></div><div class="info-grid" style="grid-template-columns:1fr">' + infoItem('Total Students', String(data.students.length)) + infoItem('Total Batches', String(data.batches.length)) + infoItem('Total Tasks', String(data.students.flatMap(s=>s.tasks).length)) + infoItem('Total Goals', String(data.students.flatMap(s=>s.goals).length)) + infoItem('Storage', 'localStorage') + infoItem('Version', '1.0.0') + '</div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Preferences</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><div><div style="font-weight:600;font-size:13px">Notifications</div><div style="font-size:12px;color:var(--muted)">Show notification badges</div></div><span class="badge badge-accent">Enabled</span></div></div>' +
+    '</div></div></div>';
+}
+
+/* ============================================================
+   FORM MODALS
+============================================================ */
+function studentFormModal(sid) {
+  const s = sid ? data.students.find(x => x.id === sid) : null;
+  const isEdit = !!s;
+  const m = modal({
+    title: isEdit ? 'Edit Student' : 'Add New Student',
+    size: 'lg',
+    body: '<form id="student-form">' +
+      '<div class="form-row"><div class="form-group"><label>Full Name *</label><input class="form-control" name="name" required value="' + esc(s?s.name:'') + '" /></div><div class="form-group"><label>Admission Number *</label><input class="form-control" name="admissionNo" required value="' + esc(s?s.admissionNo:'') + '" /></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Batch *</label><select class="form-control" name="batch" required>' + data.batches.map(b => '<option value="' + b.name + '" ' + (s&&s.batch===b.name?'selected':'') + '>' + b.name + '</option>').join('') + '</select></div><div class="form-group"><label>Class</label><input class="form-control" name="class" value="' + esc(s?s.academics.class:'12th Standard') + '" /></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Date of Birth</label><input class="form-control" type="date" name="dob" value="' + esc(s?s.dob:'') + '" /></div><div class="form-group"><label>Gender</label><select class="form-control" name="gender"><option value="Male" ' + (s&&s.gender==='Male'?'selected':'') + '>Male</option><option value="Female" ' + (s&&s.gender==='Female'?'selected':'') + '>Female</option><option value="Other" ' + (s&&s.gender==='Other'?'selected':'') + '>Other</option></select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Contact Number</label><input class="form-control" name="phone" value="' + esc(s?s.phone:'') + '" /></div><div class="form-group"><label>Email</label><input class="form-control" type="email" name="email" value="' + esc(s?s.email:'') + '" /></div></div>' +
+      '<div class="form-group"><label>Address</label><textarea class="form-control" name="address" rows="2">' + esc(s?s.address:'') + '</textarea></div>' +
+      '<div class="form-row-3"><div class="form-group"><label>GPA (0-4)</label><input class="form-control" type="number" step="0.01" min="0" max="4" name="gpa" value="' + (s?s.academics.gpa:'3.5') + '" /></div><div class="form-group"><label>Attendance %</label><input class="form-control" type="number" min="0" max="100" name="attendance" value="' + (s?s.academics.attendance:'90') + '" /></div><div class="form-group"><label>Performance %</label><input class="form-control" type="number" min="0" max="100" name="performance" value="' + (s?s.academics.performance:'80') + '" /></div></div>' +
+      '<div class="form-group"><label>Upload Photo</label><input class="form-control" type="file" accept="image/*" id="photo-input" />' + (s && s.photo ? '<div style="margin-top:10px"><img src="' + s.photo + '" style="width:80px;height:80px;border-radius:12px;object-fit:cover" /></div>' : '') + '</div>' +
+    '</form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="student-save">' + (isEdit?'Save Changes':'Add Student') + '</button>'
+  });
+  m.querySelector('#student-save').addEventListener('click', async () => {
+    const f = m.querySelector('#student-form');
+    const fd = Object.fromEntries(new FormData(f));
+    if (!fd.name || !fd.admissionNo) { toast('Name and admission number required', 'error'); return; }
+    
+    const fileInput = m.querySelector('#photo-input');
+    let photoData = s ? s.photo : null;
+    if (fileInput.files && fileInput.files[0]) {
+      photoData = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      });
+    }
+    
+    if (isEdit) {
+      s.name = fd.name; s.admissionNo = fd.admissionNo; s.batch = fd.batch; s.dob = fd.dob; s.gender = fd.gender; s.phone = fd.phone; s.email = fd.email; s.address = fd.address; s.photo = photoData;
+      s.academics.class = fd.class; s.academics.gpa = parseFloat(fd.gpa) || 0; s.academics.attendance = parseInt(fd.attendance) || 0; s.academics.performance = parseInt(fd.performance) || 0;
+      toast('Student updated successfully');
+    } else {
+      const ns = {
+        id: uid(), name: fd.name, admissionNo: fd.admissionNo, batch: fd.batch, dob: fd.dob, gender: fd.gender, phone: fd.phone, email: fd.email, address: fd.address, photo: photoData,
+        familyStatus:'Middle Class', father:{name:'',occupation:'',employed:true}, mother:{name:'',occupation:'',employed:false}, siblings:[], challenges:{financial:'Low',educational:'Low',social:'Low',health:'None'}, mentorNotes:'',
+        academics:{class:fd.class, attendance:parseInt(fd.attendance)||0, performance:parseInt(fd.performance)||0, gpa:parseFloat(fd.gpa)||0, strongSubjects:[],weakSubjects:[],examResults:[], readingHabits:'',learningProgress:'Steady', gpaTrend:[],attendanceTrend:[]},
+        development:{strengths:[],weaknesses:[],skills:[],talents:[],improvements:[],leadership:5,communication:5,teamwork:5,creativity:5,discipline:5,behaviour:'Good'},
+        achievements:[],goals:[],tasks:[]
+      };
+      data.students.push(ns);
+      toast('Student added successfully');
+    }
+    save(); m.remove(); render();
+  });
+}
+
+function taskFormModal(sid, tid) {
+  const t = tid ? data.students.flatMap(s => s.tasks).find(x => x.id === tid) : null;
+  const isEdit = !!t;
+  const m = modal({
+    title: isEdit ? 'Edit Task' : 'Assign New Task',
+    body: '<form id="task-form">' +
+      '<div class="form-group"><label>Assign To Student *</label><select class="form-control" name="student" ' + (isEdit ? 'disabled' : '') + ' required>' +
+        data.students.map(st => '<option value="' + st.id + '" ' + (sid === st.id ? 'selected' : '') + '>' + esc(st.name) + ' (' + esc(st.batch) + ')</option>').join('') +
+      '</select></div>' +
+      '<div class="form-group"><label>Task Title *</label><input class="form-control" name="title" required value="' + esc(t?t.title:'') + '" /></div>' +
+      '<div class="form-group"><label>Description</label><textarea class="form-control" name="desc" rows="3">' + esc(t?t.desc:'') + '</textarea></div>' +
+      '<div class="form-row"><div class="form-group"><label>Category</label><select class="form-control" name="category">' + ['Academic','Technical','Leadership','Creative','Career','Writing','Research','Other'].map(c => '<option ' + (t&&t.category===c?'selected':'') + '>' + c + '</option>').join('') + '</select></div><div class="form-group"><label>Priority</label><select class="form-control" name="priority">' + ['High','Medium','Low'].map(p => '<option ' + (t&&t.priority===p?'selected':'') + '>' + p + '</option>').join('') + '</select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Assigned Date</label><input class="form-control" type="date" name="assignedDate" value="' + (t?t.assignedDate:new Date().toISOString().slice(0,10)) + '" /></div><div class="form-group"><label>Deadline *</label><input class="form-control" type="date" name="deadline" required value="' + (t?t.deadline:'') + '" /></div></div>' +
+      '<div class="form-group"><label>Status</label><select class="form-control" name="status">' + ['Assigned','In Progress','Completed','Pending','Overdue'].map(st => '<option ' + (t&&t.status===st?'selected':'') + '>' + st + '</option>').join('') + '</select></div>' +
+    '</form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="task-save">' + (isEdit?'Save':'Assign Task') + '</button>'
+  });
+  m.querySelector('#task-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#task-form')));
+    if (!fd.title || !fd.deadline) { toast('Title and deadline required', 'error'); return; }
+    
+    const targetSid = isEdit ? data.students.find(s => s.tasks.some(tk => tk.id === tid)).id : fd.student;
+    const s = data.students.find(x => x.id === targetSid);
+    if (!s) return;
+    
+    if (isEdit) { 
+      Object.assign(t, fd); 
+      delete t.student; 
+      toast('Task updated'); 
+    } else { 
+      s.tasks.push({id:uid(), title:fd.title, desc:fd.desc, category:fd.category, priority:fd.priority, assignedDate:fd.assignedDate, deadline:fd.deadline, status:fd.status, rating:null, feedback:'', submission:''}); 
+      toast('Task assigned'); 
+    }
+    save(); m.remove(); render();
+  });
+}
+
+function goalFormModal(sid, gid) {
+  const g = gid ? data.students.flatMap(s => s.goals).find(x => x.id === gid) : null;
+  const isEdit = !!g;
+  const m = modal({
+    title: isEdit ? 'Edit Goal' : 'Create New Goal',
+    body: '<form id="goal-form">' +
+      '<div class="form-group"><label>Assign To Student *</label><select class="form-control" name="student" ' + (isEdit ? 'disabled' : '') + ' required>' +
+        data.students.map(st => '<option value="' + st.id + '" ' + (sid === st.id ? 'selected' : '') + '>' + esc(st.name) + ' (' + esc(st.batch) + ')</option>').join('') +
+      '</select></div>' +
+      '<div class="form-group"><label>Goal Title *</label><input class="form-control" name="title" required value="' + esc(g?g.title:'') + '" /></div>' +
+      '<div class="form-group"><label>Description</label><textarea class="form-control" name="desc" rows="3">' + esc(g?g.desc:'') + '</textarea></div>' +
+      '<div class="form-row"><div class="form-group"><label>Category</label><select class="form-control" name="category">' + ['Monthly Goals','Semester Goals','Academic Year Goals','Long-Term Goals','Career Goals','Life Goals'].map(c => '<option ' + (g&&g.category===c?'selected':'') + '>' + c + '</option>').join('') + '</select></div><div class="form-group"><label>Priority</label><select class="form-control" name="priority">' + ['High','Medium','Low'].map(p => '<option ' + (g&&g.priority===p?'selected':'') + '>' + p + '</option>').join('') + '</select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Target Date</label><input class="form-control" type="date" name="targetDate" value="' + (g?g.targetDate:'') + '" /></div><div class="form-group"><label>Status</label><select class="form-control" name="status">' + ['Not Started','In Progress','Completed','Delayed'].map(st => '<option ' + (g&&g.status===st?'selected':'') + '>' + st + '</option>').join('') + '</select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Progress %</label><input class="form-control" type="number" min="0" max="100" name="progress" value="' + (g?g.progress:0) + '" /></div></div>' +
+      '<div class="form-group"><label>Mentor Feedback</label><textarea class="form-control" name="feedback" rows="2">' + esc(g?g.feedback:'') + '</textarea></div>' +
+      '<div class="form-group"><label>Student Reflection</label><textarea class="form-control" name="reflection" rows="2">' + esc(g?g.reflection:'') + '</textarea></div>' +
+    '</form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="goal-save">' + (isEdit?'Save':'Create Goal') + '</button>'
+  });
+  m.querySelector('#goal-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#goal-form')));
+    if (!fd.title) { toast('Title required', 'error'); return; }
+    
+    const targetSid = isEdit ? data.students.find(s => s.goals.some(gl => gl.id === gid)).id : fd.student;
+    const ts = data.students.find(x => x.id === targetSid);
+    if (!ts) return;
+    
+    if (isEdit) {
+      Object.assign(g, {title:fd.title, desc:fd.desc, category:fd.category, priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
+      toast('Goal updated');
+    } else {
+      ts.goals.push({id:uid(), title:fd.title, desc:fd.desc, category:fd.category, priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
+      toast('Goal created');
+    }
+    save(); m.remove(); render();
+  });
+}
+
+function batchFormModal() {
+  const m = modal({
+    title: 'Create New Batch',
+    body: '<form id="batch-form"><div class="form-group"><label>Batch Name *</label><input class="form-control" name="name" placeholder="e.g. B-2025-A" required /></div><div class="form-row"><div class="form-group"><label>Academic Year</label><input class="form-control" name="year" value="2024-2025" /></div></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="batch-save">Create Batch</button>'
+  });
+  m.querySelector('#batch-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#batch-form')));
+    if (!fd.name) { toast('Name required', 'error'); return; }
+    data.batches.push({id:uid(), name:fd.name, year:fd.year});
+    data.mentor.batches.push(fd.name);
+    save(); toast('Batch created'); m.remove(); render();
+  });
+}
+
+function achievementFormModal(sid) {
+  const m = modal({
+    title: 'Add Achievement',
+    body: '<form id="ach-form"><div class="form-group"><label>Assign To Student *</label><select class="form-control" name="student" ' + (sid?'disabled':'') + '>' + data.students.map(s => '<option value="' + s.id + '" ' + (sid===s.id?'selected':'') + '>' + esc(s.name) + '</option>').join('') + '</select></div><div class="form-group"><label>Title *</label><input class="form-control" name="title" required /></div><div class="form-row"><div class="form-group"><label>Type</label><select class="form-control" name="type">' + ['Awards','Certificates','Competitions','Leadership Roles','Sports','Community Activities'].map(t => '<option>' + t + '</option>').join('') + '</select></div><div class="form-group"><label>Date</label><input class="form-control" type="date" name="date" value="' + new Date().toISOString().slice(0,10) + '" /></div></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="ach-save">Add</button>'
+  });
+  m.querySelector('#ach-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#ach-form')));
+    if (!fd.title) { toast('Title required', 'error'); return; }
+    const s = data.students.find(x => x.id === (sid || fd.student));
+    s.achievements.push({title:fd.title, type:fd.type, date:fd.date});
+    save(); toast('Achievement added'); m.remove(); render();
+  });
+}
+
+function rateTaskModal(sid, tid) {
+  const s = data.students.find(x => x.id === sid);
+  const t = s.tasks.find(x => x.id === tid);
+  const m = modal({
+    title: 'Evaluate Task',
+    body: '<div style="margin-bottom:18px;padding:14px;background:var(--surface-2);border-radius:var(--r)"><div style="font-weight:600;font-size:14px">' + esc(t.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + esc(t.desc) + '</div>' + (t.submission ? '<div style="margin-top:8px;padding:8px 10px;background:var(--surface-3);border-radius:6px;font-size:12px"><strong>Submission:</strong> ' + esc(t.submission) + '</div>' : '') + '</div>' +
+      '<form id="rate-form"><div class="form-group"><label>Rating (1-10)</label><input class="form-control" type="range" min="1" max="10" value="' + (t.rating||8) + '" name="rating" id="rating-slider" style="width:100%" /><div style="text-align:center;font-family:var(--fd);font-size:32px;font-weight:600;color:var(--accent)" id="rating-display">' + (t.rating||8) + '</div></div><div class="form-group"><label>Feedback</label><textarea class="form-control" name="feedback" rows="3" placeholder="Provide constructive feedback...">' + esc(t.feedback||'') + '</textarea></div><div class="form-group"><label>Update Status</label><select class="form-control" name="status"><option ' + (t.status==='Completed'?'selected':'') + '>Completed</option><option ' + (t.status==='In Progress'?'selected':'') + '>In Progress</option><option ' + (t.status==='Pending'?'selected':'') + '>Pending</option><option ' + (t.status==='Overdue'?'selected':'') + '>Overdue</option></select></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="rate-save">Save Evaluation</button>'
+  });
+  m.querySelector('#rating-slider').addEventListener('input', e => { m.querySelector('#rating-display').textContent = e.target.value; });
+  m.querySelector('#rate-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#rate-form')));
+    t.rating = parseInt(fd.rating); t.feedback = fd.feedback; t.status = fd.status;
+    save(); toast('Task evaluated'); m.remove(); render();
+  });
+}
+
+function mentorEditModal() {
+  const m = data.mentor;
+  const md = modal({
+    title: 'Edit Mentor Profile',
+    body: '<form id="mentor-form"><div class="form-group"><label>Name *</label><input class="form-control" name="name" required value="' + esc(m.name) + '" /></div><div class="form-row"><div class="form-group"><label>Designation</label><input class="form-control" name="designation" value="' + esc(m.designation) + '" /></div><div class="form-group"><label>Phone</label><input class="form-control" name="phone" value="' + esc(m.phone) + '" /></div></div><div class="form-group"><label>Email</label><input class="form-control" type="email" name="email" value="' + esc(m.email) + '" /></div><div class="form-group"><label>Photo URL</label><input class="form-control" name="photo" value="' + esc(m.photo||'') + '" placeholder="Leave empty for auto avatar" /></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="mentor-save">Save</button>'
+  });
+  md.querySelector('#mentor-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(md.querySelector('#mentor-form')));
+    if (!fd.name) { toast('Name required', 'error'); return; }
+    Object.assign(data.mentor, {name:fd.name, designation:fd.designation, phone:fd.phone, email:fd.email, photo:fd.photo||null});
+    save(); toast('Profile updated'); md.remove(); render();
+  });
+}
+
+function submitTaskModal(tid) {
+  const s = state.user;
+  const t = s.tasks.find(x => x.id === tid);
+  const m = modal({
+    title: 'Submit Task',
+    body: '<div style="margin-bottom:14px;padding:14px;background:var(--surface-2);border-radius:var(--r)"><div style="font-weight:600">' + esc(t.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + esc(t.desc) + '</div></div><form id="submit-form"><div class="form-group"><label>Submission Notes</label><textarea class="form-control" name="submission" rows="4" placeholder="Describe your submission, include links, or attach notes..."></textarea></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="submit-save">Submit Task</button>'
+  });
+  m.querySelector('#submit-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#submit-form')));
+    t.submission = fd.submission; t.status = 'Completed';
+    save();
+    state.user = data.students.find(x => x.id === s.id);
+    toast('Task submitted successfully'); m.remove(); render();
+  });
+}
+
+function updateGoalModal(gid) {
+  const s = state.user;
+  const g = s.goals.find(x => x.id === gid);
+  const m = modal({
+    title: 'Update Goal Progress',
+    body: '<div style="margin-bottom:14px;padding:14px;background:var(--surface-2);border-radius:var(--r)"><div style="font-weight:600">' + esc(g.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + esc(g.desc) + '</div></div><form id="update-goal-form"><div class="form-group"><label>Progress: <span id="prog-display" style="font-family:var(--fm);color:var(--accent);font-weight:600">' + g.progress + '%</span></label><input class="form-control" type="range" min="0" max="100" value="' + g.progress + '" name="progress" id="prog-slider" style="width:100%" /></div><div class="form-group"><label>Your Reflection</label><textarea class="form-control" name="reflection" rows="3" placeholder="Share your thoughts on progress...">' + esc(g.reflection||'') + '</textarea></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="prog-save">Update</button>'
+  });
+  m.querySelector('#prog-slider').addEventListener('input', e => { m.querySelector('#prog-display').textContent = e.target.value + '%'; });
+  m.querySelector('#prog-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#update-goal-form')));
+    g.progress = parseInt(fd.progress); g.reflection = fd.reflection;
+    if (g.progress === 100) g.status = 'Completed';
+    else if (g.progress > 0) g.status = 'In Progress';
+    save();
+    state.user = data.students.find(x => x.id === s.id);
+    toast('Goal updated'); m.remove(); render();
+  });
+}
+
+function notifModal(targetId = 'all') {
+  const targetName = targetId === 'all' ? 'All Students' : (data.students.find(s => s.id === targetId)?.name || 'All Students');
+  const m = modal({
+    title: 'Send Notification',
+    body: '<form id="notif-form"><div class="form-group"><label>Send To</label><input class="form-control" value="' + targetName + '" disabled /></div><div class="form-group"><label>Title *</label><input class="form-control" name="title" required /></div><div class="form-group"><label>Message</label><textarea class="form-control" name="text" rows="3"></textarea></div><div class="form-row"><div class="form-group"><label>Type</label><select class="form-control" name="icon"><option value="bell">General</option><option value="alert">Alert</option><option value="flag">Goal</option><option value="check">Success</option><option value="award">Achievement</option></select></div><div class="form-group"><label>Color</label><select class="form-control" name="color"><option value="accent">Blue</option><option value="amber">Amber</option><option value="rose">Red</option><option value="sky">Sky</option><option value="green">Green</option></select></div></div></form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="notif-save">Send</button>'
+  });
+  m.querySelector('#notif-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#notif-form')));
+    data.notifications.unshift({id:uid(), title:fd.title, text:fd.text, time:'Just now', icon:fd.icon, color:fd.color, unread:true, target: targetId});
+    save(); toast('Notification sent'); m.remove(); render();
+  });
+}
+
+function reportModal(idx) {
+  const types = ['Student Progress Report','Academic Report','Task Report','Goal Achievement Report','Semester Evaluation Report','Annual Development Report'];
+  const type = types[idx];
+  const students = data.students;
+  const m = modal({
+    title: type,
+    size: 'lg',
+    body: '<div style="max-height:60vh;overflow-y:auto" id="report-preview"><div style="background:var(--surface-2);padding:24px;border-radius:var(--r);border:1px solid var(--border)"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--accent)"><div><div style="font-family:var(--fd);font-size:24px;font-weight:600">' + esc(type) + '</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Mentorship Platform · Generated ' + new Date().toLocaleDateString() + '</div></div><div style="text-align:right"><div style="font-weight:600">' + esc(data.mentor.name) + '</div><div style="font-size:12px;color:var(--muted)">' + esc(data.mentor.designation) + '</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px"><div style="padding:12px;background:var(--surface-3);border-radius:8px;text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--accent)">' + students.length + '</div><div style="font-size:11px;color:var(--muted)">Students</div></div><div style="padding:12px;background:var(--surface-3);border-radius:8px;text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--sky)">' + Math.round(avg(students.map(s=>computePerformance(s)))) + '%</div><div style="font-size:11px;color:var(--muted)">Avg Performance</div></div><div style="padding:12px;background:var(--surface-3);border-radius:8px;text-align:center"><div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--amber)">' + Math.round(avg(students.map(s=>s.academics.attendance))) + '%</div><div style="font-size:11px;color:var(--muted)">Avg Attendance</div></div></div><table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">Student</th><th style="text-align:left;padding:8px">Batch</th><th style="text-align:center;padding:8px">GPA</th><th style="text-align:center;padding:8px">Attendance</th><th style="text-align:center;padding:8px">Performance</th><th style="text-align:center;padding:8px">Tasks</th><th style="text-align:center;padding:8px">Goals</th></tr></thead><tbody>' + students.map(s => '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">' + esc(s.name) + '</td><td style="padding:8px">' + esc(s.batch) + '</td><td style="padding:8px;text-align:center;font-family:var(--fm)">' + s.academics.gpa.toFixed(2) + '</td><td style="padding:8px;text-align:center;font-family:var(--fm)">' + s.academics.attendance + '%</td><td style="padding:8px;text-align:center;font-family:var(--fm);color:var(--accent);font-weight:600">' + computePerformance(s) + '%</td><td style="padding:8px;text-align:center">' + s.tasks.filter(t=>t.status==='Completed').length + '/' + s.tasks.length + '</td><td style="padding:8px;text-align:center">' + Math.round(avg(s.goals.map(g=>g.progress))) + '%</td></tr>').join('') + '</tbody></table><div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-align:center">This report was generated by Mentorship Platform · Confidential</div></div></div>',
+    footer: '<button class="btn btn-ghost" data-close>Close</button><button class="btn btn-primary" id="print-report">' + I.download + ' Download PDF</button>'
+  });
+  m.querySelector('#print-report').addEventListener('click', () => window.print());
+}
+
+function passwordModal() {
+  const m = modal({
+    title:'Change Password',
+    body:'<form id="pw-form"><div class="form-group"><label>Current Password</label><input class="form-control" type="password" name="cur" /></div><div class="form-group"><label>New Password</label><input class="form-control" type="password" name="new" /></div><div class="form-group"><label>Confirm Password</label><input class="form-control" type="password" name="conf" /></div></form>',
+    footer:'<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="pw-save">Update</button>'
+  });
+  m.querySelector('#pw-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#pw-form')));
+    if (!fd.new || fd.new !== fd.conf) { toast('Passwords do not match', 'error'); return; }
+    toast('Password updated successfully'); m.remove();
+  });
+}
+
+function photoModal() {
+  const m = modal({
+    title:'Change Photo',
+    body:'<form id="photo-form"><div class="form-group"><label>Upload Photo</label><input class="form-control" type="file" accept="image/*" id="mentor-photo-input" /></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Upload a new profile picture.</p></form>',
+    footer:'<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="photo-save">Update Photo</button>'
+  });
+  m.querySelector('#photo-save').addEventListener('click', async () => {
+    const fileInput = m.querySelector('#mentor-photo-input');
+    if (fileInput.files && fileInput.files[0]) {
+      const photoData = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      });
+      data.mentor.photo = photoData;
+      save(); toast('Photo updated'); m.remove(); render();
+    } else {
+      toast('Please select a file', 'error');
+    }
+  });
+}
+
+/* ============================================================
+   FAB ACTION HANDLER
+============================================================ */
+function handleFabAction(action, sid) {
+  if (state.fabOpen) {
+    state.fabOpen = false;
+    const fm = $('#fab-main'); if (fm) fm.classList.remove('open');
+    const fmm = $('#fab-menu'); if (fmm) fmm.classList.remove('open');
+  }
+  switch(action) {
+    case 'add-student': studentFormModal(null); break;
+    case 'add-task': taskFormModal(sid || null, null); break;
+    case 'add-goal': goalFormModal(sid || null, null); break;
+    case 'add-batch': batchFormModal(); break;
+    case 'add-achievement': achievementFormModal(sid); break;
+    case 'send-notif': notifModal(sid || 'all'); break;
+    case 'upload-report': state.view = 'reports'; render(); break;
+  }
+}
+
+/* ============================================================
+   CHARTS
+============================================================ */
+function chartColors() {
+  const css = getComputedStyle(document.documentElement);
+  return {
+    accent: css.getPropertyValue('--accent').trim() || '#2563eb',
+    sky: css.getPropertyValue('--sky').trim() || '#0ea5e9',
+    amber: css.getPropertyValue('--amber').trim() || '#f59e0b',
+    rose: css.getPropertyValue('--rose').trim() || '#f43f5e',
+    green: css.getPropertyValue('--green').trim() || '#10b981',
+    text: css.getPropertyValue('--text').trim() || '#0f172a',
+    muted: css.getPropertyValue('--muted').trim() || '#64748b',
+    border: css.getPropertyValue('--border').trim() || '#e2e8f0'
+  };
+}
+
+function initCharts() {
+  Object.values(state.charts).forEach(c => { try { c.destroy(); } catch(e) {} });
+  state.charts = {};
+  const c = chartColors();
+  Chart.defaults.color = c.muted;
+  Chart.defaults.font.family = 'Poppins, sans-serif';
+  Chart.defaults.font.size = 11;
+  Chart.defaults.borderColor = c.border;
+  
+  const gridOpts = { color: c.border };
+  const baseOpts = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: gridOpts } } };
+  
+  function hexA(hex, a) {
+    if (!hex.startsWith('#')) return hex;
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+  
+  if ($('#perf-chart')) {
+    state.charts.perf = new Chart($('#perf-chart'), {
+      type: 'line',
+      data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [
+        { label:'GPA', data:[3.4,3.5,3.6,3.6,3.7,3.7], borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill:true, tension:0.4, borderWidth:2, pointBackgroundColor: c.accent, pointRadius:4, yAxisID:'y' },
+        { label:'Attendance', data:[88,89,90,91,91,92], borderColor: c.amber, backgroundColor: hexA(c.amber,0.15), fill:true, tension:0.4, borderWidth:2, pointBackgroundColor: c.amber, pointRadius:4, yAxisID:'y1' }
+      ]},
+      options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, position:'left', min: 3, max: 4 }, y1: { ...baseOpts.scales.y, position:'right', min: 80, max: 100, grid: { display: false } } }, plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, boxHeight: 8, padding: 12 } } } }
+    });
+  }
+  
+  if ($('#task-chart')) {
+    const allTasks = data.students.flatMap(s => s.tasks);
+    const completed = allTasks.filter(t => t.status === 'Completed').length;
+    const inProgress = allTasks.filter(t => t.status === 'In Progress').length;
+    const assigned = allTasks.filter(t => t.status === 'Assigned').length;
+    const overdue = allTasks.filter(t => t.status === 'Overdue').length;
+    state.charts.task = new Chart($('#task-chart'), {
+      type: 'doughnut',
+      data: { labels: ['Completed','In Progress','Assigned','Overdue'], datasets: [{ data: [completed, inProgress, assigned, overdue], backgroundColor: [c.green, c.sky, c.amber, c.rose], borderWidth: 0, hoverOffset: 8 }] },
+      options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, boxHeight: 8, padding: 10 } } } }
+    });
+  }
+  
+  if ($('#batch-chart')) {
+    const batches = data.batches.map(b => b.name);
+    const perfs = data.batches.map(b => {
+      const sts = data.students.filter(s => s.batch === b.name);
+      return Math.round(avg(sts.map(s => computePerformance(s))));
+    });
+    state.charts.batch = new Chart($('#batch-chart'), {
+      type: 'bar',
+      data: { labels: batches, datasets: [{ data: perfs, backgroundColor: [hexA(c.accent,0.8), hexA(c.sky,0.8), hexA(c.amber,0.8)], borderRadius: 8, borderSkipped: false, barThickness: 50 }] },
+      options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 0, max: 100 } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y + '%' } } } }
+    });
+  }
+  
+  if ($('#radar-chart') || $('#perf-radar')) {
+    const s = data.students.find(x => x.id === state.studentId);
+    if (s) {
+      const d = s.development;
+      const radarData = { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline','Academic','Attendance'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10, s.academics.performance, s.academics.attendance], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] };
+      const radarOpts = { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } };
+      if ($('#radar-chart')) state.charts.radar = new Chart($('#radar-chart'), { type: 'radar', data: radarData, options: radarOpts });
+      if ($('#perf-radar')) state.charts.perfRadar = new Chart($('#perf-radar'), { type: 'radar', data: radarData, options: radarOpts });
+    }
+  }
+  
+  if ($('#gpa-chart')) {
+    const s = data.students.find(x => x.id === state.studentId);
+    if (s) state.charts.gpa = new Chart($('#gpa-chart'), { type: 'line', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ data: s.academics.gpaTrend, borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 2.5, max: 4 } } } });
+  }
+  
+  if ($('#att-chart')) {
+    const s = data.students.find(x => x.id === state.studentId);
+    if (s) state.charts.att = new Chart($('#att-chart'), { type: 'bar', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ data: s.academics.attendanceTrend, backgroundColor: hexA(c.sky,0.8), borderRadius: 6, barThickness: 28 }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 70, max: 100 } } } });
+  }
+  
+  if ($('#exam-chart')) {
+    const s = data.students.find(x => x.id === state.studentId);
+    if (s) state.charts.exam = new Chart($('#exam-chart'), { type: 'bar', data: { labels: s.academics.examResults.map(e => e.subject), datasets: [{ data: s.academics.examResults.map(e => e.score), backgroundColor: hexA(c.amber,0.8), borderRadius: 6, barThickness: 36 }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 0, max: 100 } } } });
+  }
+  
+  if ($('#trend-chart')) {
+    const s = data.students.find(x => x.id === state.studentId);
+    if (s) {
+      const trend = s.academics.gpaTrend.map(g => Math.round(g/4*100));
+      state.charts.trend = new Chart($('#trend-chart'), { type: 'line', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ label:'Performance', data: trend, borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 5 }] }, options: { ...baseOpts } });
+    }
+  }
+  
+  if ($('#sd-trend')) {
+    const s = state.user;
+    if (s) state.charts.sdTrend = new Chart($('#sd-trend'), { type: 'line', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ label:'GPA', data: s.academics.gpaTrend, borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 3, yAxisID: 'y' }, { label:'Attendance', data: s.academics.attendanceTrend, borderColor: c.amber, backgroundColor: hexA(c.amber,0.15), fill: false, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.amber, pointRadius: 3, yAxisID: 'y1' }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, position: 'left', min: 2.5, max: 4 }, y1: { ...baseOpts.scales.y, position: 'right', min: 70, max: 100, grid: { display: false } } }, plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, padding: 10 } } } } });
+  }
+  
+  if ($('#sd-radar')) {
+    const s = state.user;
+    if (s) {
+      const d = s.development;
+      state.charts.sdRadar = new Chart($('#sd-radar'), { type: 'radar', data: { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } } });
+    }
+  }
+  
+  if ($('#sa-radar')) {
+    const s = state.user;
+    if (s) {
+      const d = s.development;
+      state.charts.saRadar = new Chart($('#sa-radar'), { type: 'radar', data: { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline','Academic'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10, s.academics.performance], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } } });
+    }
+  }
+  
+  if ($('#sa-trend')) {
+    const s = state.user;
+    if (s) state.charts.saTrend = new Chart($('#sa-trend'), { type: 'line', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ label:'GPA', data: s.academics.gpaTrend, borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 3, yAxisID: 'y' }, { label:'Attendance', data: s.academics.attendanceTrend, borderColor: c.amber, backgroundColor: hexA(c.amber,0.15), fill: false, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.amber, pointRadius: 3, yAxisID: 'y1' }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, position: 'left', min: 2.5, max: 4 }, y1: { ...baseOpts.scales.y, position: 'right', min: 70, max: 100, grid: { display: false } } }, plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, padding: 10 } } } } });
+  }
+  
+  if ($('#an-dist')) {
+    const buckets = { '90-100': 0, '80-89': 0, '70-79': 0, '60-69': 0, '<60': 0 };
+    data.students.forEach(s => {
+      const p = computePerformance(s);
+      if (p >= 90) buckets['90-100']++;
+      else if (p >= 80) buckets['80-89']++;
+      else if (p >= 70) buckets['70-79']++;
+      else if (p >= 60) buckets['60-69']++;
+      else buckets['<60']++;
+    });
+    state.charts.anDist = new Chart($('#an-dist'), { type: 'bar', data: { labels: Object.keys(buckets), datasets: [{ data: Object.values(buckets), backgroundColor: [hexA(c.green,0.8), hexA(c.sky,0.8), hexA(c.amber,0.8), hexA(c.rose,0.6), hexA(c.rose,0.8)], borderRadius: 8, barThickness: 40 }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 0, ticks: { stepSize: 1 } } } } });
+  }
+  
+  if ($('#an-scatter')) {
+    state.charts.anScatter = new Chart($('#an-scatter'), { type: 'scatter', data: { datasets: [{ label: 'Students', data: data.students.map(s => ({ x: s.academics.attendance, y: s.academics.performance, name: s.name })), backgroundColor: hexA(c.accent,0.8), borderColor: c.accent, pointRadius: 8, pointHoverRadius: 12 }] }, options: { ...baseOpts, scales: { x: { ...baseOpts.scales.x, min: 70, max: 100, title: { display: true, text: 'Attendance %', color: c.muted } }, y: { ...baseOpts.scales.y, min: 60, max: 100, title: { display: true, text: 'Performance %', color: c.muted } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw.name + ': ' + ctx.raw.y + '% perf, ' + ctx.raw.x + '% att' } } } } });
+  }
+  
+  if ($('#an-batch')) {
+    const batches = data.batches.map(b => b.name);
+    state.charts.anBatch = new Chart($('#an-batch'), { type: 'bar', data: { labels: batches, datasets: [{ label:'Performance', data: data.batches.map(b => { const sts = data.students.filter(s=>s.batch===b.name); return Math.round(avg(sts.map(s=>computePerformance(s)))); }), backgroundColor: hexA(c.accent,0.8), borderRadius: 6, barThickness: 24 }, { label:'Attendance', data: data.batches.map(b => { const sts = data.students.filter(s=>s.batch===b.name); return Math.round(avg(sts.map(s=>s.academics.attendance))); }), backgroundColor: hexA(c.amber,0.8), borderRadius: 6, barThickness: 24 }, { label:'GPA (x25)', data: data.batches.map(b => { const sts = data.students.filter(s=>s.batch===b.name); return Math.round(avg(sts.map(s=>s.academics.gpa))*25); }), backgroundColor: hexA(c.sky,0.8), borderRadius: 6, barThickness: 24 }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, min: 0, max: 100 } }, plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, padding: 10 } } } } });
+  }
+}
+
+/* ============================================================
+   RENDER
+============================================================ */
+function render() {
+  const app = $('#app');
+  
+  if (state.view === 'login' || !state.role) {
+    app.innerHTML = loginView();
+    loginMount();
+    return;
+  }
+  
+  let content = '';
+  switch(state.view) {
+    case 'dashboard': content = dashboardView(); break;
+    case 'students': content = studentsView(); break;
+    case 'profile': content = profileView(); break;
+    case 'batches': content = batchesView(); break;
+    case 'analytics': content = analyticsView(); break;
+    case 'reports': content = reportsView(); break;
+    case 'settings': content = settingsView(); break;
+    case 'student-dash': content = studentDashView(); break;
+    case 'student-profile': content = studentProfileView(); break;
+    case 'student-tasks': content = studentTasksView(); break;
+    case 'student-goals': content = studentGoalsView(); break;
+    case 'student-achievements': content = studentAchievementsView(); break;
+    case 'student-development': content = studentDevelopmentView(); break;
+    case 'student-performance': content = studentPerformanceView(); break;
+    case 'student-notifications': content = studentNotificationsView(); break;
+    default: content = dashboardView();
+  }
+  
+  app.innerHTML = shell(content);
+  mountEvents();
+  setTimeout(initCharts, 50);
+  if (state.view === 'dashboard' && shouldFetchSystemStats()) {
+    fetchSystemStats().then(() => { if (state.view === 'dashboard') render(); });
+  }
+}
+
+function bindRankRows() {
+  $$('.rank-row[data-student]').forEach(el => el.addEventListener('click', () => {
+    state.studentId = el.dataset.student;
+    state.view = 'profile';
+    state.tab = 'overview';
+    render();
+  }));
+}
+
+function mountEvents() {
+  if (!mountEvents.boundDocumentClick) {
+    document.addEventListener('click', e => {
+      if (state.notifOpen && !e.target.closest('#notif-panel') && !e.target.closest('#notif-btn')) {
+        state.notifOpen = false;
+        const p = $('#notif-panel');
+        if (p) p.classList.remove('open');
+      }
+    });
+    mountEvents.boundDocumentClick = true;
+  }
+
+  // Nav
+  $$('.nav-item[data-nav]').forEach(el => el.addEventListener('click', () => {
+    state.view = el.dataset.nav;
+    state.tab = 'overview';
+    state.sidebarOpen = false;
+    $('#sidebar') && $('#sidebar').classList.remove('open');
+    $('#overlay') && $('#overlay').classList.remove('show');
+    render();
+  }));
+  
+  // Logout
+  const lo = $('#logout-btn');
+  if (lo) lo.addEventListener('click', logout);
+  
+  // Menu toggle
+  const mt = $('#menu-toggle');
+  if (mt) mt.addEventListener('click', () => {
+    state.sidebarOpen = !state.sidebarOpen;
+    $('#sidebar').classList.toggle('open', state.sidebarOpen);
+    $('#overlay').classList.toggle('show', state.sidebarOpen);
+  });
+  
+  const ov = $('#overlay');
+  if (ov) ov.addEventListener('click', () => {
+    state.sidebarOpen = false;
+    $('#sidebar').classList.remove('open');
+    ov.classList.remove('show');
+  });
+  
+  // Notifications
+  const nb = $('#notif-btn');
+  if (nb) nb.addEventListener('click', e => {
+    e.stopPropagation();
+    state.notifOpen = !state.notifOpen;
+    $('#notif-panel').classList.toggle('open', state.notifOpen);
+  });
+  const nc = $('#notif-close');
+  if (nc) nc.addEventListener('click', () => {
+    state.notifOpen = false;
+    $('#notif-panel').classList.remove('open');
+  });
+  document.addEventListener('click', e => {
+    if (state.notifOpen && !e.target.closest('#notif-panel') && !e.target.closest('#notif-btn')) {
+      state.notifOpen = false;
+      const p = $('#notif-panel');
+      if (p) p.classList.remove('open');
+    }
+  });
+  
+  // Global search
+  const gs = $('#global-search');
+  if (gs) gs.addEventListener('input', e => {
+    state.search = e.target.value;
+    if (state.view === 'dashboard' || state.view === 'students') {
+      const list = $('#ranking-list');
+      if (list) { list.innerHTML = renderRankingList(); bindRankRows(); }
+    }
+  });
+  if (gs) gs.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      // Move to students/ranking view for full results
+      state.view = 'students';
+      render();
+    }
+  });
+  const gbtn = $('#global-search-btn');
+  if (gbtn) gbtn.addEventListener('click', e => {
+    const v = $('#global-search');
+    if (v) {
+      // focus input when clicked; Enter will perform search
+      v.focus();
+    }
+  });
+  
+  // Ranking controls
+  const rs = $('#rank-search');
+  if (rs) rs.addEventListener('input', e => {
+    state.search = e.target.value;
+    const list = $('#ranking-list');
+    if (list) { list.innerHTML = renderRankingList(); bindRankRows(); }
+  });
+  const fb = $('#filter-batch');
+  if (fb) fb.addEventListener('change', e => {
+    state.filterBatch = e.target.value;
+    const list = $('#ranking-list');
+    if (list) { list.innerHTML = renderRankingList(); bindRankRows(); }
+  });
+  const sb = $('#sort-by');
+  if (sb) sb.addEventListener('change', e => {
+    state.sortBy = e.target.value;
+    const list = $('#ranking-list');
+    if (list) { list.innerHTML = renderRankingList(); bindRankRows(); }
+  });
+  bindRankRows();
+  
+  // Tabs
+  $$('.tab[data-tab]').forEach(t => t.addEventListener('click', () => {
+    state.tab = t.dataset.tab;
+    render();
+  }));
+  
+  // Edit student
+  $$('[data-edit-student]').forEach(b => b.addEventListener('click', () => studentFormModal(b.dataset.editStudent)));
+  
+  // Edit mentor
+  $$('[data-edit-mentor]').forEach(b => b.addEventListener('click', mentorEditModal));
+  
+  // Settings actions
+  const cp = $('[data-change-password]'); if (cp) cp.addEventListener('click', passwordModal);
+  const cph = $('[data-change-photo]'); if (cph) cph.addEventListener('click', photoModal);
+  const bk = $('[data-backup]'); if (bk) bk.addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'mentorship-backup.json'; a.click();
+    URL.revokeObjectURL(url);
+    toast('Backup downloaded');
+  });
+  const rt = $('[data-reset]'); if (rt) rt.addEventListener('click', () => confirmModal('Reset all data to defaults? This cannot be undone.', resetData));
+  
+  // FAB
+  const fabMain = $('#fab-main');
+  if (fabMain) fabMain.addEventListener('click', () => {
+    state.fabOpen = !state.fabOpen;
+    $('#fab-menu').classList.toggle('open', state.fabOpen);
+    fabMain.classList.toggle('open', state.fabOpen);
+  });
+  $$('.fab-action').forEach(a => a.addEventListener('click', () => handleFabAction(a.dataset.action, a.dataset.student)));
+  
+  // Action buttons
+  $$('[data-action]').forEach(b => b.addEventListener('click', () => handleFabAction(b.dataset.action, b.dataset.student)));
+  
+  // Individual Notification
+  $$('[data-individual-notif]').forEach(b => b.addEventListener('click', () => notifModal(b.dataset.individualNotif)));
+  
+  // Task buttons
+  $$('[data-edit-task]').forEach(b => b.addEventListener('click', () => taskFormModal(b.dataset.editTask, b.dataset.task)));
+  $$('[data-delete-task]').forEach(b => b.addEventListener('click', () => {
+    const sid = b.dataset.deleteTask; const tid = b.dataset.task;
+    confirmModal('Delete this task?', () => {
+      const s = data.students.find(x => x.id === sid);
+      s.tasks = s.tasks.filter(t => t.id !== tid);
+      save(); render(); toast('Task deleted');
+    });
+  }));
+  $$('[data-rate-task]').forEach(b => b.addEventListener('click', () => rateTaskModal(b.dataset.rateTask, b.dataset.task)));
+  $$('[data-submit-task]').forEach(b => b.addEventListener('click', () => submitTaskModal(b.dataset.submitTask)));
+  
+  // Goal buttons
+  $$('[data-edit-goal]').forEach(b => b.addEventListener('click', () => goalFormModal(b.dataset.editGoal, b.dataset.goal)));
+  $$('[data-delete-goal]').forEach(b => b.addEventListener('click', () => {
+    const sid = b.dataset.deleteGoal; const gid = b.dataset.goal;
+    confirmModal('Delete this goal?', () => {
+      const s = data.students.find(x => x.id === sid);
+      s.goals = s.goals.filter(g => g.id !== gid);
+      save(); render(); toast('Goal deleted');
+    });
+  }));
+  $$('[data-update-goal]').forEach(b => b.addEventListener('click', () => updateGoalModal(b.dataset.updateGoal)));
+  
+  // Reports
+  $$('[data-report]').forEach(b => b.addEventListener('click', () => reportModal(b.dataset.report)));
+  
+  // Batch view students
+  $$('[data-batch-students]').forEach(b => b.addEventListener('click', () => {
+    state.filterBatch = b.dataset.batchStudents;
+    state.view = 'students';
+    render();
+  }));
+  $$('[data-edit-batch]').forEach(b => b.addEventListener('click', () => {
+    const bid = b.dataset.editBatch;
+    const bt = data.batches.find(x => x.id === bid);
+    const m = modal({
+      title:'Edit Batch',
+      body:'<form id="eb-form"><div class="form-group"><label>Batch Name</label><input class="form-control" name="name" value="' + esc(bt.name) + '" /></div><div class="form-row"><div class="form-group"><label>Year</label><input class="form-control" name="year" value="' + esc(bt.year) + '" /></div></div></form>',
+      footer:'<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="eb-save">Save</button>'
+    });
+    m.querySelector('#eb-save').addEventListener('click', () => {
+      const fd = Object.fromEntries(new FormData(m.querySelector('#eb-form')));
+      const oldName = bt.name;
+      bt.name = fd.name; bt.year = fd.year;
+      data.students.forEach(s => { if (s.batch === oldName) s.batch = fd.name; });
+      const idx = data.mentor.batches.indexOf(oldName);
+      if (idx >= 0) data.mentor.batches[idx] = fd.name;
+      save(); toast('Batch updated'); m.remove(); render();
+    });
+  }));
+}
+
+// Initial render
+(async function initApp() {
+  data = await load();
+  render();
+})();
+</script>
+</body>
+</html>
