@@ -1176,10 +1176,8 @@ function shell(content) {
     {id:'dashboard', label:'Dashboard', icon:I.dashboard},
     {id:'students', label:'Students', icon:I.students},
     {id:'tasks', label:'Tasks', icon:I.tasks, badge: data.students.reduce((a,s)=>a+s.tasks.filter(t=>t.status!=='Completed').length,0)},
-    {id:'goals', label:'Goals', icon:I.goals},
     {id:'batches', label:'Batches', icon:I.batch},
-    {id:'analytics', label:'Analytics', icon:I.analytics},
-    {id:'reports', label:'Reports', icon:I.reports},
+    {id:'analytics', label:'Insights', icon:I.analytics},
     {id:'settings', label:'Settings', icon:I.settings}
   ] : [
     {id:'student-dash', label:'Dashboard', icon:I.dashboard},
@@ -1382,16 +1380,14 @@ function profileView() {
   const tabs = [
     {id:'overview', label:'Overview'},
     {id:'personal', label:'Personal'},
+    {id:'performance', label:'Performance'},
+    {id:'progress', label:'Achievements & Goals'},
     {id:'family', label:'Family'},
-    {id:'development', label:'Development'},
-    {id:'achievements', label:'Achievements'},
-    {id:'goals', label:'Goals'},
     {id:'tasks', label:'Tasks'}
   ];
   
   return '' +
     '<div class="fade-in">' +
-      '<button class="btn btn-ghost" data-nav="dashboard" style="margin-bottom:16px">' + I.arrowLeft + ' Back to Dashboard</button>' +
       '<div class="profile-hero"><div class="profile-hero-content">' +
         '<div class="avatar xl" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
         '<div class="profile-hero-info">' +
@@ -1401,15 +1397,14 @@ function profileView() {
             '<span>' + I.batch + esc(s.batch) + '</span>' +
           '</div>' +
           '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px">' +
-            '<span class="badge badge-accent" style="font-size:13px;padding:5px 12px"><strong>Overall: ' + score + '%</strong></span>' +
-            '<span class="badge badge-sky">GPA ' + s.academics.gpa.toFixed(2) + '</span>' +
-            '<span class="badge badge-amber">Attendance ' + s.academics.attendance + '%</span>' +
+            '<span class="badge badge-accent" style="font-size:13px;padding:5px 12px">Achievements ' + s.achievements.length + '</span>' +
+            '<span class="badge badge-sky">Goals ' + s.goals.length + '</span>' +
             '<span class="badge badge-muted">' + esc(s.academics.class) + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="profile-actions">' +
           '<button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button>' +
-          '<button class="btn btn-primary" data-nav="reports">' + I.reports + ' Report</button>' +
+          '<button class="btn btn-primary" data-nav="analytics">' + I.analytics + ' Insights</button>' +
         '</div>' +
       '</div></div>' +
       '<div class="tabs">' + tabs.map(t => '<div class="tab ' + (state.tab === t.id ? 'active':'') + '" data-tab="' + t.id + '">' + t.label + '</div>').join('') + '</div>' +
@@ -1421,37 +1416,47 @@ function profileTab(s, scores) {
   switch(state.tab) {
     case 'overview': return overviewTab(s, scores);
     case 'personal': return personalTab(s);
+    case 'performance': return performanceTab(s, scores);
+    case 'progress': return progressTab(s);
     case 'family': return familyTab(s);
-    case 'development': return developmentTab(s);
-    case 'achievements': return achievementsTab(s);
-    case 'goals': return goalsTab(s);
     case 'tasks': return tasksTab(s);
     default: return overviewTab(s, scores);
   }
 }
 
+function progressTab(s) {
+  return '' +
+    '<div class="grid-2-1">' +
+      '<div>' +
+        '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Achievements</div></div>' +
+          (s.achievements.length ? '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">' + s.achievements.map(a => '<div class="card" style="padding:18px;background:var(--surface-2)"><div style="display:flex;gap:12px;align-items:flex-start"><div style="width:42px;height:42px;border-radius:12px;background:var(--amber-soft);color:var(--amber);display:grid;place-items:center;flex-shrink:0">' + I.award + '</div><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;line-height:1.3">' + esc(a.title) + '</div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + fmtDate(a.date) + '</div><span class="badge badge-amber" style="margin-top:8px">' + esc(a.type) + '</span></div></div></div>').join('') + '</div>' : '<div class="empty">' + I.award + '<div>No achievements yet</div></div>') +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">Goals</div></div>' +
+          (s.goals.length ? '<div class="goal-list">' + s.goals.map(g => '<div class="goal-row"><div class="task-row-head"><div><div class="task-title">' + esc(g.title) + '</div><div class="task-meta"><span><span class="badge badge-' + (g.status==='Completed'?'green':g.status==='Delayed'?'rose':'amber') + '">' + g.status + '</span></span><span>' + I.calendar + fmtDate(g.targetDate) + '</span><span>' + I.target + esc(g.termType || g.category || 'Goal') + '</span></div></div></div><p style="font-size:13px;color:var(--text-2);margin:8px 0">' + esc(g.desc) + '</p><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">Progress</span><span style="font-family:var(--fm);font-weight:600">' + g.progress + '%</span></div><div class="progress"><div class="progress-fill ' + (g.progress<30?'rose':g.progress<70?'amber':'') + '" style="width:' + g.progress + '%"></div></div>' + (g.feedback ? '<div style="margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:8px;font-size:12px"><strong style="color:var(--accent)">Mentor Feedback:</strong> ' + esc(g.feedback) + '</div>' : '') + '</div>').join('') + '</div>' : '<div class="empty">' + I.flag + '<div>No goals yet</div></div>') +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
 function overviewTab(s, scores) {
-  const score = computePerformance(s);
   return '' +
     '<div class="grid-2-1">' +
       '<div>' +
         '<div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">' +
-          miniStat('Overall Score', score+'%', 'accent') +
           miniStat('Academic', scores.academic+'%', 'sky') +
-          miniStat('Leadership', scores.leadership+'/100', 'amber') +
-          miniStat('Discipline', scores.discipline+'/100', 'accent') +
-          miniStat('Consistency', scores.consistency+'%', 'sky') +
-          miniStat('Growth', scores.growth+'%', 'amber') +
+          miniStat('Consistency', scores.consistency+'%', 'amber') +
+          miniStat('Growth', scores.growth+'%', 'accent') +
         '</div>' +
-        '<div class="card"><div class="card-h"><div class="card-title">Performance Radar</div></div><div class="chart-wrap tall"><canvas id="radar-chart"></canvas></div></div>' +
-      '</div>' +
-      '<div>' +
-        '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Quick Stats</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
+        '<div class="card"><div class="card-h"><div class="card-title">Quick Stats</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
           progressRow('Attendance', s.academics.attendance, '%') +
           progressRow('Academic Performance', s.academics.performance, '%') +
           progressRow('Goal Achievement', scores.goalAch, '%', 'amber') +
           progressRow('Task Completion', s.tasks.length ? Math.round(s.tasks.filter(t=>t.status==='Completed').length/s.tasks.length*100) : 0, '%', 'green') +
         '</div></div>' +
+      '</div>' +
+      '<div>' +
         '<div class="card"><div class="card-h"><div class="card-title">Mentor Notes</div></div><p style="font-size:13px;line-height:1.6;color:var(--text-2)">' + esc(s.mentorNotes || 'No notes yet.') + '</p></div>' +
       '</div>' +
     '</div>';
@@ -1469,24 +1474,26 @@ function progressRow(label, value, suffix, color) {
 
 function personalTab(s) {
   return '' +
-    '<div class="card"><div class="card-h"><div class="card-title">Personal Details</div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button></div>' +
-      '<div class="info-grid">' +
-        infoItem('Full Name', s.name) +
-        infoItem('Admission Number', s.admissionNo) +
-        infoItem('Date of Birth', fmtDate(s.dob)) +
-        infoItem('Age', age(s.dob)) +
-        infoItem('Gender', s.gender) +
-        infoItem('Class', s.academics.class) +
-        infoItem('Batch', s.batch) +
-        infoItem('Student Contact', s.phone) +
-        infoItem('Student Email', s.email) +
-        infoItem('Parent Contact', [s.father?.name, s.mother?.name].filter(Boolean).join(', ') || '—') +
-        infoItem('Emergency Contact', s.phone) +
-        infoItem('Exam Status', examStatus(s)) +
-        infoItem('Exam Note', s.academics.examNote || 'No note') +
+    '<div class="card"><div class="card-h"><div><div class="card-title">Personal Details</div><div class="card-sub">Complete personal profile and contact information</div></div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button></div>' +
+      '<div class="info-grid" style="grid-template-columns:repeat(2,minmax(220px,1fr));gap:18px">' +
+        personalField('Full Name', s.name || '—') +
+        personalField('Admission Number', s.admissionNo || '—') +
+        personalField('Date of Birth', s.dob ? fmtDate(s.dob) : '—') +
+        personalField('Age', s.dob ? age(s.dob) : '—') +
+        personalField('Gender', s.gender || '—') +
+        personalField('Class', s.academics.class || '—') +
+        personalField('Batch', s.batch || '—') +
+        personalField('Contact Number', s.phone || '—') +
+        personalField('Email', s.email || '—') +
+        personalField('Address', s.address || '—') +
+        personalField('Father', s.father?.name || '—') +
+        personalField('Mother', s.mother?.name || '—') +
       '</div>' +
-      '<div class="info-item" style="margin-top:14px"><div class="lbl">Address</div><div class="val">' + esc(s.address || '—') + '</div></div>' +
     '</div>';
+}
+
+function personalField(label, value) {
+  return '<div class="info-item" style="padding:20px;background:var(--surface-2);border-radius:var(--r);border:1px solid var(--border);"><div class="lbl" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">' + label + '</div><div class="val" style="font-size:15px;font-weight:600;color:var(--text);">' + esc(value) + '</div></div>';
 }
 
 function infoItem(label, value) {
@@ -1494,13 +1501,52 @@ function infoItem(label, value) {
 }
 
 function familyTab(s) {
-  const members = getFamilyMembers(s);
+  const father = s.father || {};
+  const mother = s.mother || {};
+  const siblings = Array.isArray(s.siblings) ? s.siblings : [];
+
+  const familyMembers = [{
+    name: father.name || '—',
+    relationship: 'Father',
+    job: father.occupation || '—',
+    note: father.employed === true ? 'Employed' : father.employed === false ? 'Unemployed' : '—'
+  }, {
+    name: mother.name || '—',
+    relationship: 'Mother',
+    job: mother.occupation || '—',
+    note: mother.employed === true ? 'Employed' : mother.employed === false ? 'Unemployed' : '—'
+  }].concat(siblings.map(sib => ({
+    name: sib.name || '—',
+    relationship: sib.relationship || 'Sibling',
+    job: sib.occupation || '—',
+    note: sib.note || sib.status || '—'
+  })));
+
+  const familyRows = familyMembers.map((member, index) => {
+    let editType = index === 0 ? 'father' : index === 1 ? 'mother' : 'sibling';
+    let editIdx = index > 1 ? index - 2 : undefined;
+    return '<tr style="border-top:1px solid var(--border)">' +
+      '<td style="padding:12px 10px;text-align:center">' + (index + 1) + '</td>' +
+      '<td style="padding:12px 10px">' + esc(member.name) + '</td>' +
+      '<td style="padding:12px 10px">' + esc(member.relationship) + '</td>' +
+      '<td style="padding:12px 10px">' + esc(member.job) + '</td>' +
+      '<td style="padding:12px 10px">' + esc(member.note) + '</td>' +
+      '<td style="padding:12px 10px;text-align:center">' +
+        '<button class="btn btn-ghost" data-edit-family-member="' + s.id + '" data-member-type="' + editType + '" data-member-index="' + (editIdx !== undefined ? editIdx : '') + '" style="padding:6px 10px;font-size:12px">' + I.edit + '</button>' +
+        (index > 1 ? '<button class="btn btn-ghost" data-delete-family-member="' + s.id + '" data-member-index="' + editIdx + '" style="padding:6px 10px;font-size:12px;color:var(--rose)">' + I.trash + '</button>' : '') +
+      '</td>' +
+    '</tr>';
+  }).join('');
+
   return '' +
-    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Family Background</div><button class="btn btn-ghost" data-edit-student="' + s.id + '">' + I.edit + ' Edit</button></div><div class="info-grid">' + infoItem('Family Status', s.familyStatus || '—') + '</div></div>' +
-    '<div class="card"><div class="card-h"><div class="card-title">Family & Support</div></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Name</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Job</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Relationship</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Note</th></tr></thead><tbody>' +
-        members.map(m => '<tr style="border-top:1px solid var(--border)"><td style="padding:12px 10px">' + esc(m.name) + '</td><td style="padding:12px 10px">' + esc(m.job || '—') + '</td><td style="padding:12px 10px">' + esc(m.relationship || '—') + '</td><td style="padding:12px 10px">' + esc(m.note || '—') + '</td></tr>').join('') +
-      '</tbody></table></div></div>' +
-    '<div class="card" style="margin-top:20px;border-color:var(--accent);background:var(--accent-soft)"><div class="card-h"><div class="card-title" style="color:var(--accent)">' + I.lock + ' Private Mentor Notes</div></div><p style="font-size:13px;line-height:1.6">' + esc(s.mentorNotes || 'No private notes.') + '</p></div>';
+    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Family Status</div></div><div class="info-grid">' +
+      infoItem('Family Status', s.familyStatus || '—') +
+    '</div></div>' +
+    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Add Family Member Note</div></div><div style="padding:16px"><textarea class="form-control" placeholder="Add any additional notes about family members, challenges, or support needs..." style="min-height:100px;resize:vertical">' + esc(s.familyNote || '') + '</textarea><button class="btn btn-primary" style="margin-top:12px" data-save-family-note="' + s.id + '">Save Note</button></div></div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Family Members</div><button class="btn btn-primary" data-add-family-member="' + s.id + '" style="padding:8px 16px;font-size:13px">' + I.plus + ' Add Member</button></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:center;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">SL No</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Name</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Relation</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Job</th><th style="text-align:left;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Note</th><th style="text-align:center;padding:10px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Actions</th></tr></thead><tbody>' +
+      familyRows +
+    '</tbody></table></div></div>' +
+    '<div class="card" style="margin-top:20px;border-color:var(--accent);background:var(--accent-soft)"><div class="card-h"><div class="card-title" style="color:var(--accent)">' + I.lock + ' Private Mentor Notes</div></div><p style="font-size:13px;line-height:1.6;color:var(--text-2)">' + esc(s.mentorNotes || 'No private notes.') + '</p></div>';
 }
 
 function academicTab(s) {
@@ -1590,7 +1636,6 @@ function taskCard(t, sid) {
 function performanceTab(s, scores) {
   return '' +
     '<div class="grid-2" style="margin-bottom:20px">' +
-      '<div class="card"><div class="card-h"><div class="card-title">Performance Radar</div></div><div class="chart-wrap tall"><canvas id="perf-radar"></canvas></div></div>' +
       '<div class="card"><div class="card-h"><div class="card-title">Score Breakdown</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
         progressRow('Academic Score', scores.academic, '%') +
         progressRow('Leadership Score', scores.leadership, '/100', 'amber') +
@@ -1598,6 +1643,9 @@ function performanceTab(s, scores) {
         progressRow('Consistency Score', scores.consistency, '%', 'amber') +
         progressRow('Goal Achievement', scores.goalAch, '%') +
         progressRow('Growth Score', scores.growth, '/100', 'amber') +
+      '</div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Performance Summary</div></div><div style="padding:18px;font-size:13px;color:var(--text-2);line-height:1.6">' +
+        'Review the latest academic, development, and goal progress metrics to stay aligned with your student’s growth plan.' +
       '</div></div>' +
     '</div>' +
     '<div class="card"><div class="card-h"><div class="card-title">Performance Trend</div></div><div class="chart-wrap tall"><canvas id="trend-chart"></canvas></div></div>';
@@ -1634,9 +1682,8 @@ function studentDashView() {
         '<div style="flex:1;min-width:240px;position:relative">' +
           '<h1 style="font-size:32px;font-weight:600;margin-bottom:4px">Welcome, <em style="font-style:normal;color:var(--accent)">' + esc(s.name.split(' ')[0]) + '</em></h1>' +
           '<p style="color:var(--muted);margin-bottom:12px">' + esc(s.admissionNo) + ' · ' + esc(s.batch) + ' · ' + esc(s.academics.class) + '</p>' +
-          '<div style="display:flex;gap:10px;flex-wrap:wrap"><span class="badge badge-accent" style="font-size:13px;padding:5px 12px">Overall: ' + score + '%</span><span class="badge badge-sky">GPA ' + s.academics.gpa.toFixed(2) + '</span><span class="badge badge-amber">Attendance ' + s.academics.attendance + '%</span></div>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap"><span class="badge badge-accent" style="font-size:13px;padding:5px 12px">Goals ' + myGoals.length + '</span><span class="badge badge-sky">Achievements ' + s.achievements.length + '</span></div>' +
         '</div>' +
-        '<div style="position:relative"><div style="font-family:var(--fd);font-size:48px;font-weight:600;color:var(--accent);line-height:1">' + score + '</div><div style="font-size:12px;color:var(--muted);text-align:right">Overall Score</div></div>' +
       '</div></div>' +
       '<div class="stats-grid">' +
         statCard('My Tasks', myTasks.length, myTasks.filter(t=>t.status==='Completed').length + ' completed', 'up', I.tasks, 'accent') +
@@ -1657,7 +1704,13 @@ function studentDashView() {
       '</div>' +
       '<div class="grid-2" style="margin-top:20px">' +
         '<div class="card"><div class="card-h"><div class="card-title">Performance Trend</div></div><div class="chart-wrap"><canvas id="sd-trend"></canvas></div></div>' +
-        '<div class="card"><div class="card-h"><div class="card-title">My Development</div></div><div class="chart-wrap"><canvas id="sd-radar"></canvas></div></div>' +
+        '<div class="card"><div class="card-h"><div class="card-title">Development Summary</div></div><div style="padding:18px;display:grid;gap:12px">' +
+          ratingBar('Leadership', s.development.leadership) +
+          ratingBar('Communication', s.development.communication) +
+          ratingBar('Teamwork', s.development.teamwork) +
+          ratingBar('Creativity', s.development.creativity) +
+          ratingBar('Discipline', s.development.discipline) +
+        '</div></div>' +
       '</div>' +
       '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Recent Feedback</div></div>' +
         (s.tasks.filter(t => t.feedback).slice(0,3).map(t => '<div class="activity-item"><div class="activity-icon" style="background:var(--accent-soft);color:var(--accent)">' + I.message + '</div><div class="activity-content"><div class="activity-text"><strong>' + esc(t.title) + '</strong> — ' + esc(t.feedback) + '</div><div class="activity-time">Rating: ' + t.rating + '/10</div></div></div>').join('') || '<div class="empty">No feedback yet</div>') +
@@ -1681,8 +1734,9 @@ function studentGoalsView() {
   const s = state.user;
   return '' +
     '<div class="fade-in"><div class="greeting"><h1>My <em>Goals</em></h1><p>Track your progress and update reflections</p></div>' +
+    '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Your Goals</div><button class="btn btn-primary" data-action="add-goal" data-student="' + s.id + '">' + I.plus + ' Create Goal</button></div></div>' +
     '<div class="card"><div class="goal-list">' +
-      s.goals.map(g => '<div class="goal-row"><div class="task-row-head"><div><div class="task-title">' + esc(g.title) + '</div><div class="task-meta"><span><span class="badge badge-' + (g.status==='Completed'?'green':g.status==='Delayed'?'rose':'amber') + '">' + g.status + '</span></span><span>' + I.calendar + fmtDate(g.targetDate) + '</span><span>' + I.target + esc(g.category) + '</span></div></div><button class="btn btn-primary" data-update-goal="' + g.id + '" style="padding:8px 14px;font-size:12px">' + I.edit + ' Update Progress</button></div><p style="font-size:13px;color:var(--text-2);margin:8px 0">' + esc(g.desc) + '</p><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">Progress</span><span style="font-family:var(--fm);font-weight:600">' + g.progress + '%</span></div><div class="progress"><div class="progress-fill ' + (g.progress<30?'rose':g.progress<70?'amber':'') + '" style="width:' + g.progress + '%"></div></div>' + (g.feedback ? '<div style="margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:8px;font-size:12px"><strong style="color:var(--accent)">Mentor Feedback:</strong> ' + esc(g.feedback) + '</div>' : '') + '</div>').join('') +
+      s.goals.map(g => '<div class="goal-row"><div class="task-row-head"><div><div class="task-title">' + esc(g.title) + '</div><div class="task-meta"><span><span class="badge badge-' + (g.status==='Completed'?'green':g.status==='Delayed'?'rose':'amber') + '">' + g.status + '</span></span><span>' + I.calendar + fmtDate(g.targetDate) + '</span><span>' + I.target + esc(g.termType || g.category || 'Goal') + '</span></div></div><button class="btn btn-primary" data-update-goal="' + g.id + '" style="padding:8px 14px;font-size:12px">' + I.edit + ' Update Progress</button></div><p style="font-size:13px;color:var(--text-2);margin:8px 0">' + esc(g.desc) + '</p><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">Progress</span><span style="font-family:var(--fm);font-weight:600">' + g.progress + '%</span></div><div class="progress"><div class="progress-fill ' + (g.progress<30?'rose':g.progress<70?'amber':'') + '" style="width:' + g.progress + '%"></div></div>' + (g.feedback ? '<div style="margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:8px;font-size:12px"><strong style="color:var(--accent)">Mentor Feedback:</strong> ' + esc(g.feedback) + '</div>' : '') + '</div>').join('') +
     '</div></div></div>';
 }
 
@@ -1729,7 +1783,13 @@ function studentPerformanceView() {
       statCard('Growth', scores.growth+'%', 'Composite growth', 'up', I.zap, 'accent') +
     '</div>' +
     '<div class="grid-2">' +
-      '<div class="card"><div class="card-h"><div class="card-title">Development Radar</div></div><div class="chart-wrap tall"><canvas id="sa-radar"></canvas></div></div>' +
+      '<div class="card"><div class="card-h"><div class="card-title">Development Summary</div></div><div style="padding:18px;display:grid;gap:12px">' +
+        ratingBar('Leadership', s.development.leadership) +
+        ratingBar('Communication', s.development.communication) +
+        ratingBar('Teamwork', s.development.teamwork) +
+        ratingBar('Creativity', s.development.creativity) +
+        ratingBar('Discipline', s.development.discipline) +
+      '</div></div>' +
       '<div class="card"><div class="card-h"><div class="card-title">GPA & Attendance Trend</div></div><div class="chart-wrap tall"><canvas id="sa-trend"></canvas></div></div>' +
     '</div>' +
     '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Score Breakdown</div></div><div style="display:flex;flex-direction:column;gap:14px">' +
@@ -1757,10 +1817,10 @@ function studentProfileView() {
     '<div class="fade-in"><div class="greeting"><h1>My <em>Profile</em></h1><p>View your personal and academic details</p></div>' +
     '<div class="profile-hero"><div class="profile-hero-content">' +
       '<div class="avatar xl" style="background-image:url(\'' + avatarUrl(s) + '\')"></div>' +
-      '<div class="profile-hero-info"><h2>' + esc(s.name) + '</h2><div class="profile-hero-meta"><span>' + I.user + esc(s.admissionNo) + '</span><span>' + I.batch + esc(s.batch) + '</span><span>' + I.phone + esc(s.phone) + '</span><span>' + I.mail + esc(s.email) + '</span></div></div>' +
+      '<div class="profile-hero-info"><h2>' + esc(s.name) + '</h2><div class="profile-hero-meta"><span>' + I.user + esc(s.admissionNo) + '</span><span>' + I.batch + esc(s.batch) + '</span></div></div>' +
     '</div></div>' +
     '<div class="card" style="margin-bottom:20px"><div class="card-h"><div class="card-title">Personal Details</div></div><div class="info-grid">' + infoItem('Full Name', s.name) + infoItem('Admission Number', s.admissionNo) + infoItem('Date of Birth', fmtDate(s.dob)) + infoItem('Age', age(s.dob)) + infoItem('Gender', s.gender) + infoItem('Class', s.academics.class) + infoItem('Batch', s.batch) + infoItem('Contact', s.phone) + '</div></div>' +
-    '<div class="card"><div class="card-h"><div class="card-title">Academic Details</div></div><div class="info-grid">' + infoItem('GPA', s.academics.gpa.toFixed(2)) + infoItem('Attendance', s.academics.attendance+'%') + infoItem('Performance', s.academics.performance+'%') + infoItem('Learning Progress', s.academics.learningProgress) + '</div></div>' +
+    '<div class="card"><div class="card-h"><div class="card-title">Academic Details</div></div><div class="info-grid">' + infoItem('GPA', s.academics.gpa.toFixed(2)) + infoItem('Attendance', s.academics.attendance+'%') + infoItem('Learning Progress', s.academics.learningProgress) + '</div></div>' +
     '</div>';
 }
 
@@ -1785,8 +1845,14 @@ function batchesView() {
    ANALYTICS VIEW
 ============================================================ */
 function analyticsView() {
+  const reports = [
+    {title:'Student Progress Report', desc:'Overview of individual student progress across all dimensions', icon:I.trending, color:'accent'},
+    {title:'Academic Report', desc:'Detailed academic performance, GPA trends, attendance and exam scores', icon:I.book, color:'sky'},
+    {title:'Task Report', desc:'Task completion rates, ratings and submission history', icon:I.tasks, color:'amber'},
+    {title:'Goal Achievement Report', desc:'Goal progress, milestones reached and category breakdown', icon:I.target, color:'accent'}
+  ];
   return '' +
-    '<div class="fade-in"><div class="greeting"><h1>Analytics <em>Dashboard</em></h1><p>Comprehensive insights across all students and batches</p></div>' +
+    '<div class="fade-in"><div class="greeting"><h1>Analytics <em>& Reports</em></h1><p>Comprehensive insights and report summaries in one place</p></div>' +
     '<div class="stats-grid">' +
       statCard('Avg Performance', Math.round(avg(data.students.map(s=>computePerformance(s))))+'%', 'All students', 'up', I.trending, 'accent') +
       statCard('Avg Attendance', Math.round(avg(data.students.map(s=>s.academics.attendance)))+'%', 'All students', 'up', I.calendar, 'sky') +
@@ -1800,7 +1866,10 @@ function analyticsView() {
     '<div class="grid-2" style="margin-top:20px">' +
       '<div class="card"><div class="card-h"><div class="card-title">Batch Comparison</div></div><div class="chart-wrap tall"><canvas id="an-batch"></canvas></div></div>' +
       '<div class="card"><div class="card-h"><div class="card-title">Subject Performance Heatmap</div></div><div style="margin-top:16px">' + renderHeatmap() + '</div></div>' +
-    '</div></div>';
+    '</div>' +
+    '<div class="card" style="margin-top:20px"><div class="card-h"><div class="card-title">Reports</div></div><div class="grid-2" style="gap:14px">' +
+      reports.map(r => '<div class="report-card" style="cursor:default"><div class="report-card-icon" style="background:var(--' + r.color + '-soft);color:var(--' + r.color + ')">' + r.icon + '</div><div><h4>' + r.title + '</h4><p>' + r.desc + '</p></div></div>').join('') +
+    '</div></div></div>';
 }
 
 function renderHeatmap() {
@@ -1925,6 +1994,69 @@ function studentFormModal(sid) {
   });
 }
 
+function familyMemberFormModal(sid, memberType, memberIndex) {
+  const s = data.students.find(x => x.id === sid);
+  let member = null;
+  let isEdit = false;
+  
+  if (memberType === 'father' && s.father) { member = s.father; isEdit = true; }
+  else if (memberType === 'mother' && s.mother) { member = s.mother; isEdit = true; }
+  else if (memberType === 'sibling' && memberIndex !== undefined && s.siblings && s.siblings[memberIndex]) { member = s.siblings[memberIndex]; isEdit = true; }
+  
+  const m = modal({
+    title: isEdit ? 'Edit Family Member' : 'Add Family Member',
+    body: '<form id="family-form">' +
+      '<div class="form-group"><label>Full Name *</label><input class="form-control" name="name" required value="' + esc(member?member.name:'') + '" /></div>' +
+      '<div class="form-group"><label>Relationship *</label><select class="form-control" name="relationship" required>' +
+        '<option value="Father" ' + (memberType==='father'?'selected':'') + '>Father</option>' +
+        '<option value="Mother" ' + (memberType==='mother'?'selected':'') + '>Mother</option>' +
+        '<option value="Brother" ' + (member && member.relationship === 'Brother'?'selected':'') + '>Brother</option>' +
+        '<option value="Sister" ' + (member && member.relationship === 'Sister'?'selected':'') + '>Sister</option>' +
+        '<option value="Sibling" ' + (member && member.relationship === 'Sibling'?'selected':'') + '>Sibling</option>' +
+        '<option value="Grandparent" ' + (member && member.relationship === 'Grandparent'?'selected':'') + '>Grandparent</option>' +
+        '<option value="Guardian" ' + (member && member.relationship === 'Guardian'?'selected':'') + '>Guardian</option>' +
+      '</select></div>' +
+      '<div class="form-group"><label>Occupation/Job</label><input class="form-control" name="occupation" value="' + esc(member?member.occupation:'') + '" placeholder="e.g. Teacher, Engineer, Business" /></div>' +
+      '<div class="form-group"><label>Employment Status</label><select class="form-control" name="employed">' +
+        '<option value="">— Not Specified —</option>' +
+        '<option value="true" ' + (member && member.employed === true?'selected':'') + '>Employed</option>' +
+        '<option value="false" ' + (member && member.employed === false?'selected':'') + '>Unemployed</option>' +
+      '</select></div>' +
+      '<div class="form-group"><label>Additional Notes</label><textarea class="form-control" name="note" rows="2" placeholder="Any additional information...">' + esc(member?member.note||member.status||'':'') + '</textarea></div>' +
+    '</form>',
+    footer: '<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="family-save">' + (isEdit?'Save':'Add Member') + '</button>'
+  });
+  
+  m.querySelector('#family-save').addEventListener('click', () => {
+    const fd = Object.fromEntries(new FormData(m.querySelector('#family-form')));
+    if (!fd.name) { toast('Name required', 'error'); return; }
+    
+    const memberData = {
+      name: fd.name,
+      relationship: fd.relationship,
+      occupation: fd.occupation || '',
+      employed: fd.employed === 'true' ? true : fd.employed === 'false' ? false : null,
+      note: fd.note || '',
+      status: fd.note || ''
+    };
+    
+    if (fd.relationship === 'Father') {
+      s.father = memberData;
+    } else if (fd.relationship === 'Mother') {
+      s.mother = memberData;
+    } else {
+      if (!s.siblings) s.siblings = [];
+      if (isEdit && memberIndex !== undefined) {
+        s.siblings[memberIndex] = { ...memberData, relationship: fd.relationship };
+      } else {
+        s.siblings.push({ ...memberData, relationship: fd.relationship });
+      }
+    }
+    
+    save(); toast(isEdit ? 'Family member updated' : 'Family member added'); m.remove(); render();
+  });
+}
+
 function taskFormModal(sid, tid) {
   const t = tid ? data.students.flatMap(s => s.tasks).find(x => x.id === tid) : null;
   const isEdit = !!t;
@@ -1973,8 +2105,9 @@ function goalFormModal(sid, gid) {
       '</select></div>' +
       '<div class="form-group"><label>Goal Title *</label><input class="form-control" name="title" required value="' + esc(g?g.title:'') + '" /></div>' +
       '<div class="form-group"><label>Description</label><textarea class="form-control" name="desc" rows="3">' + esc(g?g.desc:'') + '</textarea></div>' +
-      '<div class="form-row"><div class="form-group"><label>Category</label><select class="form-control" name="category">' + ['Monthly Goals','Semester Goals','Academic Year Goals','Long-Term Goals','Career Goals','Life Goals'].map(c => '<option ' + (g&&g.category===c?'selected':'') + '>' + c + '</option>').join('') + '</select></div><div class="form-group"><label>Priority</label><select class="form-control" name="priority">' + ['High','Medium','Low'].map(p => '<option ' + (g&&g.priority===p?'selected':'') + '>' + p + '</option>').join('') + '</select></div></div>' +
-      '<div class="form-row"><div class="form-group"><label>Target Date</label><input class="form-control" type="date" name="targetDate" value="' + (g?g.targetDate:'') + '" /></div><div class="form-group"><label>Status</label><select class="form-control" name="status">' + ['Not Started','In Progress','Completed','Delayed'].map(st => '<option ' + (g&&g.status===st?'selected':'') + '>' + st + '</option>').join('') + '</select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Goal Type</label><select class="form-control" name="termType">' + ['Short-Term','Long-Term'].map(t => '<option ' + (g&&(g.termType===t || g.category===t)?'selected':'') + '>' + t + '</option>').join('') + '</select></div><div class="form-group"><label>Category</label><select class="form-control" name="category">' + ['Academic Goals','Career Goals','Personal Goals','Health Goals','Learning Goals','Family Goals','Other'].map(c => '<option ' + (g&&g.category===c?'selected':'') + '>' + c + '</option>').join('') + '</select></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Priority</label><select class="form-control" name="priority">' + ['High','Medium','Low'].map(p => '<option ' + (g&&g.priority===p?'selected':'') + '>' + p + '</option>').join('') + '</select></div><div class="form-group"><label>Target Date</label><input class="form-control" type="date" name="targetDate" value="' + (g?g.targetDate:'') + '" /></div></div>' +
+      '<div class="form-row"><div class="form-group"><label>Status</label><select class="form-control" name="status">' + ['Not Started','In Progress','Completed','Delayed'].map(st => '<option ' + (g&&g.status===st?'selected':'') + '>' + st + '</option>').join('') + '</select></div><div class="form-group"><label>Progress %</label><input class="form-control" type="number" min="0" max="100" name="progress" value="' + (g?g.progress:0) + '" /></div></div>' +
       '<div class="form-row"><div class="form-group"><label>Progress %</label><input class="form-control" type="number" min="0" max="100" name="progress" value="' + (g?g.progress:0) + '" /></div></div>' +
       '<div class="form-group"><label>Mentor Feedback</label><textarea class="form-control" name="feedback" rows="2">' + esc(g?g.feedback:'') + '</textarea></div>' +
       '<div class="form-group"><label>Student Reflection</label><textarea class="form-control" name="reflection" rows="2">' + esc(g?g.reflection:'') + '</textarea></div>' +
@@ -1990,10 +2123,10 @@ function goalFormModal(sid, gid) {
     if (!ts) return;
     
     if (isEdit) {
-      Object.assign(g, {title:fd.title, desc:fd.desc, category:fd.category, priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
+      Object.assign(g, {title:fd.title, desc:fd.desc, category:fd.category, termType:fd.termType || g.termType || 'Short-Term', priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
       toast('Goal updated');
     } else {
-      ts.goals.push({id:uid(), title:fd.title, desc:fd.desc, category:fd.category, priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
+      ts.goals.push({id:uid(), title:fd.title, desc:fd.desc, category:fd.category, termType:fd.termType || 'Short-Term', priority:fd.priority, targetDate:fd.targetDate, status:fd.status, progress:parseInt(fd.progress)||0, feedback:fd.feedback, reflection:fd.reflection});
       toast('Goal created');
     }
     save(); m.remove(); render();
@@ -2253,16 +2386,6 @@ function initCharts() {
     });
   }
   
-  if ($('#radar-chart') || $('#perf-radar')) {
-    const s = data.students.find(x => x.id === state.studentId);
-    if (s) {
-      const d = s.development;
-      const radarData = { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline','Academic','Attendance'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10, s.academics.performance, s.academics.attendance], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] };
-      const radarOpts = { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } };
-      if ($('#radar-chart')) state.charts.radar = new Chart($('#radar-chart'), { type: 'radar', data: radarData, options: radarOpts });
-      if ($('#perf-radar')) state.charts.perfRadar = new Chart($('#perf-radar'), { type: 'radar', data: radarData, options: radarOpts });
-    }
-  }
   
   if ($('#gpa-chart')) {
     const s = data.students.find(x => x.id === state.studentId);
@@ -2292,21 +2415,7 @@ function initCharts() {
     if (s) state.charts.sdTrend = new Chart($('#sd-trend'), { type: 'line', data: { labels: ['May','Jun','Jul','Aug','Sep','Oct'], datasets: [{ label:'GPA', data: s.academics.gpaTrend, borderColor: c.accent, backgroundColor: hexA(c.accent,0.15), fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 3, yAxisID: 'y' }, { label:'Attendance', data: s.academics.attendanceTrend, borderColor: c.amber, backgroundColor: hexA(c.amber,0.15), fill: false, tension: 0.4, borderWidth: 2, pointBackgroundColor: c.amber, pointRadius: 3, yAxisID: 'y1' }] }, options: { ...baseOpts, scales: { x: { grid: { display: false } }, y: { ...baseOpts.scales.y, position: 'left', min: 2.5, max: 4 }, y1: { ...baseOpts.scales.y, position: 'right', min: 70, max: 100, grid: { display: false } } }, plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 8, padding: 10 } } } } });
   }
   
-  if ($('#sd-radar')) {
-    const s = state.user;
-    if (s) {
-      const d = s.development;
-      state.charts.sdRadar = new Chart($('#sd-radar'), { type: 'radar', data: { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } } });
-    }
-  }
   
-  if ($('#sa-radar')) {
-    const s = state.user;
-    if (s) {
-      const d = s.development;
-      state.charts.saRadar = new Chart($('#sa-radar'), { type: 'radar', data: { labels: ['Leadership','Communication','Teamwork','Creativity','Discipline','Academic'], datasets: [{ data: [d.leadership*10, d.communication*10, d.teamwork*10, d.creativity*10, d.discipline*10, s.academics.performance], backgroundColor: hexA(c.accent,0.2), borderColor: c.accent, borderWidth: 2, pointBackgroundColor: c.accent, pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, grid: { color: c.border }, angleLines: { color: c.border }, pointLabels: { color: c.text, font: { size: 11, weight: '600' } }, ticks: { display: false, stepSize: 25 } } }, plugins: { legend: { display: false } } } });
-    }
-  }
   
   if ($('#sa-trend')) {
     const s = state.user;
@@ -2554,6 +2663,28 @@ function mountEvents() {
       save(); render(); toast('Goal deleted');
     });
   }));
+  
+  // Family member buttons
+  $$('[data-add-family-member]').forEach(b => b.addEventListener('click', () => familyMemberFormModal(b.dataset.addFamilyMember)));
+  $$('[data-edit-family-member]').forEach(b => b.addEventListener('click', () => familyMemberFormModal(b.dataset.editFamilyMember, b.dataset.memberType, b.dataset.memberIndex ? parseInt(b.dataset.memberIndex) : undefined)));
+  $$('[data-delete-family-member]').forEach(b => b.addEventListener('click', () => {
+    const sid = b.dataset.deleteFamilyMember; const idx = parseInt(b.dataset.memberIndex);
+    confirmModal('Delete this family member?', () => {
+      const s = data.students.find(x => x.id === sid);
+      if (s.siblings && s.siblings[idx]) {
+        s.siblings.splice(idx, 1);
+        save(); render(); toast('Family member deleted');
+      }
+    });
+  }));
+  $$('[data-save-family-note]').forEach(b => b.addEventListener('click', () => {
+    const sid = b.dataset.saveFamilyNote;
+    const s = data.students.find(x => x.id === sid);
+    const textarea = b.parentElement.querySelector('textarea');
+    s.familyNote = textarea.value;
+    save(); toast('Family note saved');
+  }));
+  
   $$('[data-update-goal]').forEach(b => b.addEventListener('click', () => updateGoalModal(b.dataset.updateGoal)));
   
   // Reports
