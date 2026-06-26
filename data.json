@@ -29,14 +29,18 @@
       "photo": null,
       "familyStatus": "Middle Class",
       "father": {
-        "name": "",
+        "name": "fgfh",
+        "relationship": "Father",
         "occupation": "",
-        "employed": true
+        "note": "kl;;lk;lk;",
+        "status": "kl;;lk;lk;"
       },
       "mother": {
-        "name": "",
+        "name": "gjgj",
+        "relationship": "Mother",
         "occupation": "",
-        "employed": false
+        "note": "",
+        "status": ""
       },
       "siblings": [],
       "challenges": {
